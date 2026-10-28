@@ -1,0 +1,3634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>IT079IU - Principles of Database Management | Midterm Study Hub</title>
+  <style>
+    :root {
+      --bg-primary: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-surface-alt: #f1f5f9;
+      --bg-canvas: #ffffff;
+      --border-color: #e2e8f0;
+      --border-focus: #3b82f6;
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+      --accent-primary: #2563eb;
+      --accent-primary-hover: #1d4ed8;
+      --accent-success: #16a34a;
+      --accent-warning: #d97706;
+      --accent-danger: #dc2626;
+      --accent-purple: #7c3aed;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+    }
+
+    [data-theme="dark"] {
+      --bg-primary: #0b0f19;
+      --bg-surface: #111827;
+      --bg-surface-alt: #1f2937;
+      --bg-canvas: #151d30;
+      --border-color: #2e384d;
+      --border-focus: #60a5fa;
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #64748b;
+      --accent-primary: #3b82f6;
+      --accent-primary-hover: #60a5fa;
+      --accent-success: #22c55e;
+      --accent-warning: #f59e0b;
+      --accent-danger: #ef4444;
+      --accent-purple: #a855f7;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.3);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.4);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-family);
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 0.2s ease, color 0.2s ease;
+    }
+
+    /* Header & Navigation */
+    header {
+      background-color: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .header-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0.75rem 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, var(--accent-primary), var(--accent-purple));
+      color: white;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 1.15rem;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .brand-info h1 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      color: var(--text-primary);
+    }
+
+    .brand-info p {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      padding: 0.45rem 0.85rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      background-color: var(--bg-surface);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+      user-select: none;
+    }
+
+    .btn:hover {
+      background-color: var(--bg-surface-alt);
+    }
+
+    .btn-primary {
+      background-color: var(--accent-primary);
+      border-color: var(--accent-primary);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--accent-primary-hover);
+      border-color: var(--accent-primary-hover);
+    }
+
+    .btn-success {
+      background-color: var(--accent-success);
+      border-color: var(--accent-success);
+      color: #ffffff;
+    }
+
+    .btn-warning {
+      background-color: var(--accent-warning);
+      border-color: var(--accent-warning);
+      color: #ffffff;
+    }
+
+    .btn-danger {
+      background-color: var(--accent-danger);
+      border-color: var(--accent-danger);
+      color: #ffffff;
+    }
+
+    .btn-sm {
+      padding: 0.25rem 0.55rem;
+      font-size: 0.75rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.2rem 0.5rem;
+      font-size: 0.72rem;
+      font-weight: 600;
+      border-radius: 9999px;
+      line-height: 1;
+    }
+
+    .badge-primary { background: rgba(37, 99, 235, 0.12); color: var(--accent-primary); }
+    .badge-success { background: rgba(22, 163, 74, 0.12); color: var(--accent-success); }
+    .badge-warning { background: rgba(217, 119, 6, 0.12); color: var(--accent-warning); }
+    .badge-danger { background: rgba(220, 38, 38, 0.12); color: var(--accent-danger); }
+    .badge-purple { background: rgba(124, 58, 237, 0.12); color: var(--accent-purple); }
+
+    /* Topic Overview Bar */
+    .topics-overview {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0.75rem 1.5rem;
+    }
+
+    .topics-grid {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .topic-chip {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 0.6rem 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      position: relative;
+    }
+
+    .topic-chip-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .topic-title {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .topic-ratio {
+      font-size: 0.7rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+    }
+
+    .progress-bar-bg {
+      width: 100%;
+      height: 6px;
+      background: var(--border-color);
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      background: var(--accent-primary);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .topic-stats {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+    }
+
+    /* Tab Navigation (Exam weighted) */
+    .tabs-wrapper {
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      padding: 0 1.5rem;
+    }
+
+    .tabs-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: flex;
+      width: 100%;
+    }
+
+    /* Proportional exam weights: 25%, 30%, 45% */
+    .tab-btn {
+      padding: 0.85rem 1rem;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 0.88rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s ease;
+      text-align: center;
+      position: relative;
+    }
+
+    .tab-btn:hover {
+      background: var(--bg-surface-alt);
+      color: var(--text-primary);
+    }
+
+    .tab-btn.active {
+      color: var(--accent-primary);
+      border-bottom-color: var(--accent-primary);
+      background: rgba(37, 99, 235, 0.03);
+    }
+
+    .tab-btn[data-stage="1"] {
+      flex: 25;
+      max-width: 25%;
+    }
+
+    .tab-btn[data-stage="2"] {
+      flex: 30;
+      max-width: 30%;
+    }
+
+    .tab-btn[data-stage="3"] {
+      flex: 45;
+      max-width: 45%;
+    }
+
+    .tab-weight-badge {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 0.15rem 0.45rem;
+      border-radius: 9999px;
+      background: var(--bg-surface-alt);
+      color: var(--text-muted);
+    }
+
+    .tab-btn.active .tab-weight-badge {
+      background: rgba(37, 99, 235, 0.15);
+      color: var(--accent-primary);
+    }
+
+    /* Main Container */
+    main {
+      flex: 1;
+      max-width: 1400px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.5rem;
+    }
+
+    .tab-content {
+      display: none;
+    }
+
+    .tab-content.active {
+      display: block;
+      animation: fadeIn 0.2s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Verification Status Banner */
+    .verification-banner {
+      background: linear-gradient(135deg, rgba(22, 163, 74, 0.08), rgba(37, 99, 235, 0.05));
+      border: 1px solid var(--accent-success);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .verification-banner-icon {
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    .verification-banner-body h3 {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--accent-success);
+      margin-bottom: 0.25rem;
+    }
+
+    .verification-banner-body p {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    /* Common Card Styles */
+    .card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 1.25rem;
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.75rem;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .card-title {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .card-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .source-tag {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
+      background: var(--bg-surface-alt);
+      padding: 0.2rem 0.5rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .source-tag.verified {
+      background: rgba(22, 163, 74, 0.08);
+      color: var(--accent-success);
+      border-color: rgba(22, 163, 74, 0.25);
+    }
+
+    .source-tag.unverified {
+      background: rgba(220, 38, 38, 0.08);
+      color: var(--accent-danger);
+      border-color: rgba(220, 38, 38, 0.2);
+    }
+
+    /* MCQ Stage 1 Styles */
+    .mcq-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .mcq-question {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 1rem;
+    }
+
+    .mcq-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .mcq-option {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface-alt);
+      cursor: pointer;
+      transition: all 0.15s ease;
+      font-size: 0.88rem;
+    }
+
+    .mcq-option:hover {
+      border-color: var(--accent-primary);
+      background: var(--bg-surface);
+    }
+
+    .mcq-option.selected {
+      border-color: var(--accent-primary);
+      background: rgba(37, 99, 235, 0.08);
+    }
+
+    .mcq-option.correct {
+      border-color: var(--accent-success);
+      background: rgba(22, 163, 74, 0.1);
+      font-weight: 600;
+    }
+
+    .mcq-option.incorrect {
+      border-color: var(--accent-danger);
+      background: rgba(220, 38, 38, 0.1);
+    }
+
+    .mcq-option-letter {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .mcq-explanation {
+      margin-top: 1rem;
+      padding: 1rem;
+      background: var(--bg-surface-alt);
+      border-left: 4px solid var(--accent-primary);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 0.85rem;
+      display: none;
+    }
+
+    .mcq-explanation.visible {
+      display: block;
+    }
+
+    .mcq-why-wrong {
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      font-size: 0.82rem;
+    }
+
+    .mcq-why-wrong-item {
+      display: flex;
+      gap: 0.4rem;
+      color: var(--text-secondary);
+    }
+
+    /* Short Exercises Stage 2 */
+    .short-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+
+    .symbol-palette {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      padding: 0.6rem;
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      margin-bottom: 0.5rem;
+      align-items: center;
+    }
+
+    .symbol-palette-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      margin-right: 0.4rem;
+    }
+
+    .symbol-btn {
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 1.05rem;
+      font-weight: 700;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      color: var(--accent-primary);
+      cursor: pointer;
+      transition: all 0.1s ease;
+    }
+
+    .symbol-btn:hover {
+      background: var(--accent-primary);
+      color: white;
+      border-color: var(--accent-primary);
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .short-textarea, .short-input {
+      width: 100%;
+      padding: 0.75rem;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      transition: border-color 0.15s ease;
+      resize: vertical;
+    }
+
+    .short-textarea:focus, .short-input:focus {
+      outline: none;
+      border-color: var(--border-focus);
+      box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.15);
+    }
+
+    .short-feedback {
+      padding: 0.75rem 1rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      margin-top: 0.75rem;
+      display: none;
+    }
+
+    .short-feedback.correct {
+      display: block;
+      background: rgba(22, 163, 74, 0.1);
+      border: 1px solid var(--accent-success);
+      color: var(--text-primary);
+    }
+
+    .short-feedback.incorrect {
+      display: block;
+      background: rgba(220, 38, 38, 0.1);
+      border: 1px solid var(--accent-danger);
+      color: var(--text-primary);
+    }
+
+    .manual-override-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+      font-size: 0.75rem;
+    }
+
+    /* Essay Stage 3 */
+    .essay-container {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .scenario-stepper {
+      display: flex;
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface-alt);
+      margin-bottom: 1.5rem;
+    }
+
+    .step-btn {
+      flex: 1;
+      padding: 0.75rem 0.5rem;
+      border: none;
+      background: transparent;
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      border-right: 1px solid var(--border-color);
+      transition: all 0.15s ease;
+    }
+
+    .step-btn:last-child {
+      border-right: none;
+    }
+
+    .step-btn.active {
+      background: var(--bg-surface);
+      color: var(--accent-primary);
+      box-shadow: inset 0 -2px 0 var(--accent-primary);
+    }
+
+    .step-btn.completed {
+      color: var(--accent-success);
+    }
+
+    .step-content {
+      display: none;
+    }
+
+    .step-content.active {
+      display: block;
+    }
+
+    /* Interactive Canvas Workspace */
+    .canvas-layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 1rem;
+      min-height: 520px;
+      margin-bottom: 1rem;
+    }
+
+    .canvas-palette {
+      background: var(--bg-surface-alt);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .palette-section-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+      margin-top: 0.4rem;
+    }
+
+    .palette-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 0.65rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: grab;
+      user-select: none;
+      transition: all 0.1s ease;
+    }
+
+    .palette-item:hover {
+      border-color: var(--accent-primary);
+      transform: translateY(-1px);
+    }
+
+    .palette-icon {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .canvas-viewport {
+      background: var(--bg-canvas);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.03);
+    }
+
+    .canvas-toolbar {
+      padding: 0.5rem 0.75rem;
+      background: var(--bg-surface);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.5rem;
+      z-index: 10;
+      flex-wrap: wrap;
+    }
+
+    .canvas-toolbar-group {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .svg-canvas {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      min-height: 460px;
+      cursor: crosshair;
+    }
+
+    /* SVG Elements styling */
+    .svg-node {
+      cursor: move;
+      transition: stroke 0.15s ease;
+    }
+
+    .svg-node.selected {
+      stroke: var(--accent-primary) !important;
+      stroke-width: 2.5px !important;
+    }
+
+    .svg-edge {
+      cursor: pointer;
+      stroke: var(--text-primary);
+      stroke-width: 1.5;
+    }
+
+    .svg-edge.total {
+      stroke-width: 3.5;
+      stroke-dasharray: none;
+    }
+
+    .svg-text {
+      font-family: var(--font-family);
+      font-size: 12px;
+      user-select: none;
+      text-anchor: middle;
+      dominant-baseline: central;
+      fill: var(--text-primary);
+      pointer-events: none;
+    }
+
+    /* Side-by-Side Model Comparison */
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .comparison-column {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .model-answer-box {
+      border: 1px dashed var(--accent-purple);
+      background: rgba(124, 58, 237, 0.04);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+    }
+
+    /* Step-by-Step Rubric */
+    .rubric-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      padding: 1.25rem;
+      margin-top: 1.5rem;
+    }
+
+    .rubric-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      padding: 0.6rem 0;
+      border-bottom: 1px solid var(--border-color);
+      font-size: 0.88rem;
+    }
+
+    .rubric-item:last-child {
+      border-bottom: none;
+    }
+
+    .rubric-checkbox {
+      margin-top: 0.2rem;
+      cursor: pointer;
+      width: 16px;
+      height: 16px;
+    }
+
+    .rubric-points {
+      margin-left: auto;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      font-size: 0.82rem;
+      color: var(--accent-primary);
+    }
+
+    .score-summary-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem;
+      background: var(--bg-surface-alt);
+      border-radius: var(--radius-sm);
+      margin-top: 1rem;
+      font-weight: 700;
+    }
+
+    /* Modal / Drawer for Review & Sources */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(2px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      padding: 1rem;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-window {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      max-width: 760px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      box-shadow: var(--shadow-lg);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .modal-header {
+      padding: 1rem 1.25rem;
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-body {
+      padding: 1.25rem;
+      flex: 1;
+    }
+
+    .modal-footer {
+      padding: 0.85rem 1.25rem;
+      border-top: 1px solid var(--border-color);
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+      background: var(--bg-surface-alt);
+    }
+
+    /* Filter Bar for Exercises */
+    .filter-bar {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+
+    .filter-btn {
+      padding: 0.3rem 0.65rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      background: var(--bg-surface);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .filter-btn.active {
+      background: var(--accent-primary);
+      color: white;
+      border-color: var(--accent-primary);
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 900px) {
+      .tabs-container {
+        flex-direction: column;
+      }
+      .tab-btn[data-stage="1"],
+      .tab-btn[data-stage="2"],
+      .tab-btn[data-stage="3"] {
+        max-width: 100%;
+        width: 100%;
+      }
+      .canvas-layout {
+        grid-template-columns: 1fr;
+      }
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Header Navigation -->
+  <header>
+    <div class="header-container">
+      <div class="brand">
+        <div class="brand-logo">DB</div>
+        <div class="brand-info">
+          <h1>IT079IU Principles of Database Management</h1>
+          <p>Midterm Exam Master Study Hub • 100% Course Verified</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-sm" id="btnReviewList" title="View items to review">
+          <span>Wrong Answers Review</span>
+          <span class="badge badge-success" id="reviewCountBadge">0</span>
+        </button>
+        <button class="btn btn-sm" id="btnVerificationReport" title="Course Materials & Source Status">
+          <span>Sources & Scope</span>
+          <span class="badge badge-success" id="sourcesBadge">47 Items Verified</span>
+        </button>
+        <button class="btn btn-sm" id="btnThemeToggle" title="Toggle Light/Dark Theme">
+          <span id="themeIcon">🌙</span>
+        </button>
+        <button class="btn btn-sm btn-danger" id="btnResetProgress" title="Clear all local study progress">
+          Reset
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Per-topic Progress & Exam Focus Bar -->
+  <section class="topics-overview">
+    <div class="topics-grid">
+      <!-- ERD -->
+      <div class="topic-chip" id="topic-erd">
+        <div class="topic-chip-header">
+          <span class="topic-title">ERD Modeling</span>
+          <span class="topic-ratio" title="Exam Theory : Practice Ratio">30T : 70P (Draw)</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progress-erd" style="width: 0%;"></div>
+        </div>
+        <div class="topic-stats">
+          <span id="stat-erd-items">0 / 9 completed</span>
+          <span id="stat-erd-pct">0%</span>
+        </div>
+      </div>
+
+      <!-- ERD -> Relational -->
+      <div class="topic-chip" id="topic-mapping">
+        <div class="topic-chip-header">
+          <span class="topic-title">ERD → Relational</span>
+          <span class="topic-ratio" title="Exam Theory : Practice Ratio">30T : 70P (Convert)</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progress-mapping" style="width: 0%;"></div>
+        </div>
+        <div class="topic-stats">
+          <span id="stat-mapping-items">0 / 9 completed</span>
+          <span id="stat-mapping-pct">0%</span>
+        </div>
+      </div>
+
+      <!-- Relational Algebra -->
+      <div class="topic-chip" id="topic-ra">
+        <div class="topic-chip-header">
+          <span class="topic-title">Relational Algebra</span>
+          <span class="topic-ratio" title="Exam Theory : Practice Ratio">30T : 70P (Write)</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progress-ra" style="width: 0%;"></div>
+        </div>
+        <div class="topic-stats">
+          <span id="stat-ra-items">0 / 10 completed</span>
+          <span id="stat-ra-pct">0%</span>
+        </div>
+      </div>
+
+      <!-- Expression Tree -->
+      <div class="topic-chip" id="topic-tree">
+        <div class="topic-chip-header">
+          <span class="topic-title">Expression Tree</span>
+          <span class="topic-ratio" title="Exam Theory : Practice Ratio">20T : 80P (Draw)</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progress-tree" style="width: 0%;"></div>
+        </div>
+        <div class="topic-stats">
+          <span id="stat-tree-items">0 / 8 completed</span>
+          <span id="stat-tree-pct">0%</span>
+        </div>
+      </div>
+
+      <!-- SQL -->
+      <div class="topic-chip" id="topic-sql">
+        <div class="topic-chip-header">
+          <span class="topic-title">SQL Queries</span>
+          <span class="topic-ratio" title="Exam Theory : Practice Ratio">20T : 80P (Queries)</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" id="progress-sql" style="width: 0%;"></div>
+        </div>
+        <div class="topic-stats">
+          <span id="stat-sql-items">0 / 9 completed</span>
+          <span id="stat-sql-pct">0%</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proportional Stage Navigation Tabs (25%, 30%, 45%) -->
+  <nav class="tabs-wrapper">
+    <div class="tabs-container">
+      <button class="tab-btn active" data-stage="1" id="tabStage1">
+        <span>Stage 1: Multiple Choice</span>
+        <span class="tab-weight-badge">25% Weight (Weak Entity, Cardinality, PK/FK, RA, SQL Errors)</span>
+      </button>
+      <button class="tab-btn" data-stage="2" id="tabStage2">
+        <span>Stage 2: Short Exercises</span>
+        <span class="tab-weight-badge">30% Weight (M:N Conversion, Symbol RA, SQL Completion)</span>
+      </button>
+      <button class="tab-btn" data-stage="3" id="tabStage3">
+        <span>Stage 3: Full Essay Scenario</span>
+        <span class="tab-weight-badge">45% Weight (ERD → Schema → RA → Tree → SQL + Rubric)</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content Area -->
+  <main>
+
+    <!-- Source Verification Banner (Mandatory Workflow) -->
+    <div class="verification-banner" id="verificationAlert">
+      <div class="verification-banner-icon">✅</div>
+      <div class="verification-banner-body">
+        <h3>Course Materials Verified & Indexed (Instructor: Nguyen Thi Thuy Loan)</h3>
+        <p>
+          All <strong>47 questions, exercises, schemas, and solutions</strong> are 100% indexed directly from your 5 lecture slide decks (<code>IT079IU_Lec02_ER_Model_revise.pdf</code>, <code>IT079IU_Lec03_ER_to_Relational_revise.pdf</code>, <code>IT079IU_Lec04_Relational_Model_and_Algebra_revise.pdf</code>, <code>IT079IU_Lec05_SQL_Part1.pdf</code>, and <code>IT079IU_Lec06_SQL_Part2.pdf</code>). Zero unverified items.
+        </p>
+      </div>
+    </div>
+
+    <!-- STAGE 1: MULTIPLE CHOICE (25%) -->
+    <section class="tab-content active" id="stage1View">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Stage 1: Conceptual Multiple Choice Questions</h2>
+            <p class="card-subtitle">Spotting SQL errors, weak entities, cardinalities, relational algebra operators, and key constraints.</p>
+          </div>
+          <div class="badge badge-primary">25% Exam Weight</div>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+          Each question includes an explanation of the correct choice and a thorough breakdown of <strong>why every wrong option is incorrect</strong>. Wrong answers are automatically sent to your Review List.
+        </p>
+
+        <!-- MCQ List Container -->
+        <div class="mcq-container" id="mcqListContainer"></div>
+      </div>
+    </section>
+
+    <!-- STAGE 2: SHORT EXERCISES (30%) -->
+    <section class="tab-content" id="stage2View">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Stage 2: Short Exercises & Query Formulation</h2>
+            <p class="card-subtitle">Identify relationships, convert M:N to relational schemas, write RA expressions, and fill missing SQL code.</p>
+          </div>
+          <div class="badge badge-warning">30% Exam Weight</div>
+        </div>
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+          Submissions are auto-checked with normalized token/keyword matching (ignoring whitespace and case). Use the RA symbol palette for mathematical operators, and use manual override if your syntax is valid.
+        </p>
+
+        <!-- Filter bar -->
+        <div class="filter-bar" id="shortFilterBar">
+          <span style="font-size:0.78rem; font-weight:700; color:var(--text-muted); margin-right:0.3rem;">Filter Topic:</span>
+          <button class="filter-btn active" data-filter="all">All (30)</button>
+          <button class="filter-btn" data-filter="erd">ERD Modeling (6)</button>
+          <button class="filter-btn" data-filter="mapping">ERD → Schema (6)</button>
+          <button class="filter-btn" data-filter="ra">Relational Algebra (6)</button>
+          <button class="filter-btn" data-filter="tree">Expression Tree (6)</button>
+          <button class="filter-btn" data-filter="sql">SQL Queries (6)</button>
+        </div>
+
+        <!-- Symbol Palette Demo / Quick Access -->
+        <div class="symbol-palette">
+          <span class="symbol-palette-label">Global RA Palette:</span>
+          <button class="symbol-btn" data-symbol="σ" title="Selection (sigma)">σ</button>
+          <button class="symbol-btn" data-symbol="π" title="Projection (pi)">π</button>
+          <button class="symbol-btn" data-symbol="⋈" title="Natural / Theta Join (bowtie)">⋈</button>
+          <button class="symbol-btn" data-symbol="×" title="Cartesian Product (times)">×</button>
+          <button class="symbol-btn" data-symbol="∪" title="Union (cup)">∪</button>
+          <button class="symbol-btn" data-symbol="−" title="Set Difference (minus)">−</button>
+          <button class="symbol-btn" data-symbol="∩" title="Intersection (cap)">∩</button>
+          <button class="symbol-btn" data-symbol="÷" title="Division (divide)">÷</button>
+          <button class="symbol-btn" data-symbol="ρ" title="Rename (rho)">ρ</button>
+          <button class="symbol-btn" data-symbol="₍ ₎" title="Subscript Parentheses" style="font-size:0.8rem;">₍ ₎</button>
+        </div>
+
+        <!-- Short Exercises Container -->
+        <div class="short-container" id="shortListContainer"></div>
+      </div>
+    </section>
+
+    <!-- STAGE 3: FULL ESSAY SCENARIO (45%) -->
+    <section class="tab-content" id="stage3View">
+      <div class="card">
+        <div class="card-header">
+          <div>
+            <h2 class="card-title">Stage 3: Full End-to-End Database Scenario</h2>
+            <p class="card-subtitle">Carry a realistic enterprise domain scenario across all 5 progressive exam phases.</p>
+          </div>
+          <div class="badge badge-purple">45% Exam Weight</div>
+        </div>
+
+        <!-- Scenario Selector Bar -->
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:1rem; flex-wrap:wrap; gap:0.5rem;">
+          <div style="display:flex; align-items:center; gap:0.5rem;">
+            <label for="scenarioSelect" style="font-size:0.85rem; font-weight:600;">Active Scenario:</label>
+            <select id="scenarioSelect" class="btn btn-sm" style="background:var(--bg-surface-alt);">
+              <option value="1">Scenario 1: University Academic System</option>
+              <option value="2">Scenario 2: The "Beers" Enterprise System</option>
+            </select>
+          </div>
+          <div>
+            <span class="source-tag verified" id="essaySourceBadge">Verified: Lec02 Slides 60-66</span>
+          </div>
+        </div>
+
+        <!-- 5-Step Stepper -->
+        <div class="scenario-stepper">
+          <button class="step-btn active" data-step="1" id="stepBtn1">
+            <span>1. Draw ERD</span>
+          </button>
+          <button class="step-btn" data-step="2" id="stepBtn2">
+            <span>2. Schema Mapping</span>
+          </button>
+          <button class="step-btn" data-step="3" id="stepBtn3">
+            <span>3. Relational Algebra</span>
+          </button>
+          <button class="step-btn" data-step="4" id="stepBtn4">
+            <span>4. Expression Tree</span>
+          </button>
+          <button class="step-btn" data-step="5" id="stepBtn5">
+            <span>5. SQL Implementation</span>
+          </button>
+        </div>
+
+        <!-- Scenario Problem Statement -->
+        <div class="card" style="background:var(--bg-surface-alt); border-left:4px solid var(--accent-purple);">
+          <h4 style="font-size:0.92rem; margin-bottom:0.4rem;" id="scenarioDomainTitle">Scenario Domain</h4>
+          <p style="font-size:0.85rem; color:var(--text-secondary); white-space:pre-line;" id="scenarioDescription"></p>
+        </div>
+
+        <!-- STEP 1: Interactive ERD Canvas -->
+        <div class="step-content active" id="essayStep1">
+          <div class="card-header">
+            <div>
+              <h3 style="font-size:0.95rem; font-weight:700;">Step 1: Draw the Complete Entity-Relationship Diagram (ERD)</h3>
+              <p style="font-size:0.8rem; color:var(--text-muted);">
+                Drag shapes onto the SVG canvas. Double-click any element to edit its label. Switch to 'Connect' mode and click any two shapes to draw lines.
+              </p>
+            </div>
+          </div>
+
+          <div class="canvas-layout">
+            <!-- Shape Palette -->
+            <div class="canvas-palette" id="erdPalette">
+              <div class="palette-section-title">Entities</div>
+              <div class="palette-item" draggable="true" data-type="entity">
+                <div class="palette-icon">▢</div>
+                <span>Entity (Regular)</span>
+              </div>
+              <div class="palette-item" draggable="true" data-type="weak-entity">
+                <div class="palette-icon">⧈</div>
+                <span>Weak Entity</span>
+              </div>
+
+              <div class="palette-section-title">Attributes</div>
+              <div class="palette-item" draggable="true" data-type="attribute">
+                <div class="palette-icon">⬭</div>
+                <span>Regular Attribute</span>
+              </div>
+              <div class="palette-item" draggable="true" data-type="key-attribute">
+                <div class="palette-icon"><u>⬭</u></div>
+                <span>Primary Key Attribute</span>
+              </div>
+              <div class="palette-item" draggable="true" data-type="multivalued-attribute">
+                <div class="palette-icon">◎</div>
+                <span>Multivalued Attribute</span>
+              </div>
+              <div class="palette-item" draggable="true" data-type="derived-attribute">
+                <div class="palette-icon">◌</div>
+                <span>Derived Attribute</span>
+              </div>
+
+              <div class="palette-section-title">Relationships</div>
+              <div class="palette-item" draggable="true" data-type="relationship">
+                <div class="palette-icon">◇</div>
+                <span>Relationship (Diamond)</span>
+              </div>
+              <div class="palette-item" draggable="true" data-type="identifying-relationship">
+                <div class="palette-icon">◈</div>
+                <span>Identifying Rel.</span>
+              </div>
+            </div>
+
+            <!-- SVG Canvas Area -->
+            <div class="canvas-viewport">
+              <div class="canvas-toolbar">
+                <div class="canvas-toolbar-group">
+                  <button class="btn btn-sm btn-primary" id="btnErdModeSelect" title="Select & Drag Elements">✋ Select / Move</button>
+                  <button class="btn btn-sm" id="btnErdModeConnect" title="Connect Elements with Lines">🔗 Connect Elements</button>
+                  <select id="erdLineType" class="btn btn-sm" style="font-size:0.75rem;">
+                    <option value="partial">Single Line (Partial)</option>
+                    <option value="total">Double Line (Total / Mandatory)</option>
+                  </select>
+                  <input type="text" id="erdCardinalityInput" placeholder="Card. (e.g. 1, N, M)" style="width:110px; font-size:0.75rem; padding:0.25rem; border:1px solid var(--border-color); border-radius:4px;" />
+                </div>
+                <div class="canvas-toolbar-group">
+                  <button class="btn btn-sm btn-danger" id="btnErdDeleteSelected" title="Delete selected element">🗑️ Delete</button>
+                  <button class="btn btn-sm" id="btnErdClear" title="Clear Canvas">Clear</button>
+                </div>
+              </div>
+              <svg id="erdSvgCanvas" class="svg-canvas" xmlns="http://www.w3.org/2000/svg">
+                <!-- Grid background pattern -->
+                <defs>
+                  <pattern id="erdGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                    <circle cx="2" cy="2" r="1" fill="rgba(148, 163, 184, 0.25)" />
+                  </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#erdGrid)" />
+                <g id="erdEdgesGroup"></g>
+                <g id="erdNodesGroup"></g>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 2: Schema Conversion -->
+        <div class="step-content" id="essayStep2">
+          <div class="card-header">
+            <div>
+              <h3 style="font-size:0.95rem; font-weight:700;">Step 2: Relational Schema Conversion</h3>
+              <p style="font-size:0.8rem; color:var(--text-muted);">
+                Convert your ERD to normalized relational tables following the 7 course mapping rules. State Table Names, Primary Keys [PK], Foreign Keys [FK], and references.
+              </p>
+            </div>
+          </div>
+          <div class="input-group">
+            <textarea id="essaySchemaInput" class="short-textarea" rows="8" placeholder="Example format:&#10;STUDENT(StudentID [PK], FullName, MajorCode [FK -> MAJOR.MajorCode])&#10;ENROLLMENT(StudentID [PK, FK -> STUDENT], CourseID [PK, FK -> COURSE], Grade)"></textarea>
+          </div>
+        </div>
+
+        <!-- STEP 3: Relational Algebra -->
+        <div class="step-content" id="essayStep3">
+          <div class="card-header">
+            <div>
+              <h3 style="font-size:0.95rem; font-weight:700;">Step 3: Relational Algebra Expressions</h3>
+              <p style="font-size:0.8rem; color:var(--text-muted);">
+                Formulate procedural Relational Algebra expressions for the scenario queries using the symbol palette.
+              </p>
+            </div>
+          </div>
+          <div class="symbol-palette">
+            <span class="symbol-palette-label">Insert Symbol:</span>
+            <button class="symbol-btn" data-target="essayRaInput" data-symbol="σ">σ</button>
+            <button class="symbol-btn" data-target="essayRaInput" data-symbol="π">π</button>
+            <button class="symbol-btn" data-target="essayRaInput" data-symbol="⋈">⋈</button>
+            <button class="symbol-btn" data-target="essayRaInput" data-symbol="×">×</button>
+            <button class="symbol-btn" data-target="essayRaInput" data-symbol="∪">∪</button>
+            <button class="symbol-btn" data-target="essayRaInput" data-symbol="−">−</button>
+            <button class="symbol-btn" data-target="essayRaInput" data-symbol="∩">∩</button>
+            <button class="symbol-btn" data-target="essayRaInput" data-symbol="÷">÷</button>
+            <button class="symbol-btn" data-target="essayRaInput" data-symbol="ρ">ρ</button>
+          </div>
+          <div class="input-group">
+            <textarea id="essayRaInput" class="short-textarea" rows="6" placeholder="Write Relational Algebra expression here..."></textarea>
+          </div>
+        </div>
+
+        <!-- STEP 4: Expression Tree Canvas -->
+        <div class="step-content" id="essayStep4">
+          <div class="card-header">
+            <div>
+              <h3 style="font-size:0.95rem; font-weight:700;">Step 4: Relational Algebra Query Expression Tree</h3>
+              <p style="font-size:0.8rem; color:var(--text-muted);">
+                Drag Relational Algebra operators and base relations. Connect parent operators down to their child sub-expressions.
+              </p>
+            </div>
+          </div>
+
+          <div class="canvas-layout">
+            <!-- Tree Palette -->
+            <div class="canvas-palette" id="treePalette">
+              <div class="palette-section-title">Operators</div>
+              <div class="palette-item" draggable="true" data-type="tree-op" data-symbol="π">
+                <div class="palette-icon">π</div>
+                <span>Projection (π)</span>
+              </div>
+              <div class="palette-item" draggable="true" data-type="tree-op" data-symbol="σ">
+                <div class="palette-icon">σ</div>
+                <span>Selection (σ)</span>
+              </div>
+              <div class="palette-item" draggable="true" data-type="tree-op" data-symbol="⋈">
+                <div class="palette-icon">⋈</div>
+                <span>Join (⋈)</span>
+              </div>
+              <div class="palette-item" draggable="true" data-type="tree-op" data-symbol="×">
+                <div class="palette-icon">×</div>
+                <span>Cartesian (×)</span>
+              </div>
+              <div class="palette-item" draggable="true" data-type="tree-op" data-symbol="∪">
+                <div class="palette-icon">∪</div>
+                <span>Union (∪)</span>
+              </div>
+              <div class="palette-item" draggable="true" data-type="tree-op" data-symbol="−">
+                <div class="palette-icon">−</div>
+                <span>Difference (−)</span>
+              </div>
+
+              <div class="palette-section-title">Leaves (Tables)</div>
+              <div class="palette-item" draggable="true" data-type="tree-relation">
+                <div class="palette-icon">▤</div>
+                <span>Base Relation / Table</span>
+              </div>
+            </div>
+
+            <!-- SVG Tree Canvas -->
+            <div class="canvas-viewport">
+              <div class="canvas-toolbar">
+                <div class="canvas-toolbar-group">
+                  <button class="btn btn-sm btn-primary" id="btnTreeModeSelect">✋ Select / Move</button>
+                  <button class="btn btn-sm" id="btnTreeModeConnect">🔗 Connect (Parent → Child)</button>
+                </div>
+                <div class="canvas-toolbar-group">
+                  <button class="btn btn-sm btn-danger" id="btnTreeDeleteSelected">🗑️ Delete</button>
+                  <button class="btn btn-sm" id="btnTreeClear">Clear Tree</button>
+                </div>
+              </div>
+              <svg id="treeSvgCanvas" class="svg-canvas" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <pattern id="treeGrid" width="20" height="20" patternUnits="userSpaceOnUse">
+                    <circle cx="2" cy="2" r="1" fill="rgba(148, 163, 184, 0.25)" />
+                  </pattern>
+                  <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+                    <polygon points="0 0, 8 3, 0 6" fill="var(--text-primary)" />
+                  </marker>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#treeGrid)" />
+                <g id="treeEdgesGroup"></g>
+                <g id="treeNodesGroup"></g>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP 5: SQL Implementation -->
+        <div class="step-content" id="essayStep5">
+          <div class="card-header">
+            <div>
+              <h3 style="font-size:0.95rem; font-weight:700;">Step 5: SQL Query Formulation</h3>
+              <p style="font-size:0.8rem; color:var(--text-muted);">
+                Write the declarative SQL query solving the scenario problem (joins, group by, having, subqueries).
+              </p>
+            </div>
+          </div>
+          <div class="input-group">
+            <textarea id="essaySqlInput" class="short-textarea" rows="8" placeholder="SELECT ... &#10;FROM ... &#10;WHERE ... ;"></textarea>
+          </div>
+        </div>
+
+        <!-- Submission & Model Answer Reveal Action Bar -->
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-top:1.5rem; padding-top:1rem; border-top:1px solid var(--border-color);">
+          <div style="font-size:0.85rem; color:var(--text-secondary);">
+            <span id="essaySubmissionStatus">Status: In Progress (Model answer hidden until submitted)</span>
+          </div>
+          <div style="display:flex; gap:0.75rem;">
+            <button class="btn" id="btnSaveEssayDraft">Save Draft</button>
+            <button class="btn btn-primary" id="btnSubmitEssay">Submit Scenario for Grading</button>
+          </div>
+        </div>
+
+        <!-- POST-SUBMISSION: Model Answer & Step-by-Step Rubric (Hidden initially) -->
+        <div id="essayGradingSection" style="display: none; margin-top: 2rem;">
+          <div style="border-top: 2px dashed var(--accent-purple); padding-top: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+              <h3 style="font-size: 1.1rem; font-weight: 700; color: var(--accent-purple);">
+                Grading & Model Solution Review
+              </h3>
+              <span class="badge badge-purple">Model Answer Unlocked</span>
+            </div>
+
+            <!-- Side-by-Side Comparison Container -->
+            <div class="comparison-grid">
+              <!-- Left: Student's Work Summary -->
+              <div class="comparison-column">
+                <div class="card" style="height: 100%;">
+                  <h4 style="font-size: 0.92rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--accent-primary);">
+                    Your Submitted Work
+                  </h4>
+                  <div id="studentWorkSummary" style="font-size: 0.85rem; display:flex; flex-direction:column; gap:0.75rem;"></div>
+                </div>
+              </div>
+
+              <!-- Right: Verified Model Answer -->
+              <div class="comparison-column">
+                <div class="model-answer-box" style="height: 100%;">
+                  <h4 style="font-size: 0.92rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--accent-purple);">
+                    Official Course Model Solution
+                  </h4>
+                  <div id="modelSolutionDisplay" style="font-size: 0.85rem; display:flex; flex-direction:column; gap:0.75rem;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Step-by-Step Interactive Rubric -->
+            <div class="rubric-card">
+              <div class="card-header">
+                <div>
+                  <h4 style="font-size: 1rem; font-weight: 700;">Step-by-Step Exam Rubric</h4>
+                  <p style="font-size: 0.8rem; color: var(--text-muted);">
+                    Tick each grading criterion satisfied by your solution to tally your score.
+                  </p>
+                </div>
+                <button class="btn btn-sm" id="btnAutoScoreRubric">Auto-Tick Rubric</button>
+              </div>
+
+              <div id="rubricItemsContainer"></div>
+
+              <div class="score-summary-bar">
+                <span>Calculated Essay Score:</span>
+                <span id="essayTotalScore" style="color:var(--accent-primary); font-size:1.15rem;">0 / 25 pts (0%)</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- MODAL: Wrong Answers Review List -->
+  <div class="modal-overlay" id="reviewModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h3 style="font-size: 1rem; font-weight: 700;">Wrong Answers Review List</h3>
+        <button class="btn btn-sm" id="btnCloseReviewModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+          Every question answered incorrectly in Stage 1 or Stage 2 is automatically retained here until cleared or retried.
+        </p>
+        <div id="reviewListContent" style="display:flex; flex-direction:column; gap:0.75rem;"></div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-sm btn-danger" id="btnClearReviewList">Clear Review List</button>
+        <button class="btn btn-sm" id="btnDoneReviewModal">Done</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: Course Materials & Source Verification -->
+  <div class="modal-overlay" id="verificationModal">
+    <div class="modal-window">
+      <div class="modal-header">
+        <h3 style="font-size: 1rem; font-weight: 700;">Course Materials & Scope Verification Report</h3>
+        <button class="btn btn-sm" id="btnCloseVerificationModal">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="card" style="background:var(--bg-surface-alt);">
+          <h4 style="font-size: 0.9rem; font-weight: 700; margin-bottom: 0.4rem; color:var(--accent-success);">Status: 100% Course Materials Verified</h4>
+          <p style="font-size: 0.82rem; color: var(--text-secondary);">
+            Every question, exercise, notation convention, operator precedence, and SQL query is indexed directly from the official slides of <strong>IT079IU Principles of Database Management</strong> (Instructor: Nguyen Thi Thuy Loan).
+          </p>
+        </div>
+
+        <div style="margin-top: 1rem;">
+          <h4 style="font-size: 0.85rem; font-weight: 700; margin-bottom: 0.5rem;">Verified Breakdown by Topic:</h4>
+          <table style="width: 100%; font-size: 0.8rem; border-collapse: collapse; text-align: left;">
+            <thead>
+              <tr style="border-bottom: 1px solid var(--border-color); color: var(--text-muted);">
+                <th style="padding: 0.4rem;">Topic</th>
+                <th style="padding: 0.4rem;">Exam Ratio (T : P)</th>
+                <th style="padding: 0.4rem;">Items Count</th>
+                <th style="padding: 0.4rem;">Primary Slide Reference</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="border-bottom: 1px solid var(--border-color);">
+                <td style="padding: 0.4rem; font-weight:600;">ERD Modeling</td>
+                <td style="padding: 0.4rem;">30T : 70P (Drawing)</td>
+                <td style="padding: 0.4rem;">3 MCQ + 6 Short + 2 Essay</td>
+                <td style="padding: 0.4rem;"><code>IT079IU_Lec02_ER_Model_revise.pdf</code></td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-color);">
+                <td style="padding: 0.4rem; font-weight:600;">ERD → Relational</td>
+                <td style="padding: 0.4rem;">30T : 70P (Convert)</td>
+                <td style="padding: 0.4rem;">3 MCQ + 6 Short + 2 Essay</td>
+                <td style="padding: 0.4rem;"><code>IT079IU_Lec03_ER_to_Relational_revise.pdf</code></td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-color);">
+                <td style="padding: 0.4rem; font-weight:600;">Relational Algebra</td>
+                <td style="padding: 0.4rem;">30T : 70P (Write)</td>
+                <td style="padding: 0.4rem;">4 MCQ + 6 Short + 2 Essay</td>
+                <td style="padding: 0.4rem;"><code>IT079IU_Lec04_Relational_Model_and_Algebra_revise.pdf</code></td>
+              </tr>
+              <tr style="border-bottom: 1px solid var(--border-color);">
+                <td style="padding: 0.4rem; font-weight:600;">Expression Tree</td>
+                <td style="padding: 0.4rem;">20T : 80P (Draw)</td>
+                <td style="padding: 0.4rem;">2 MCQ + 6 Short + 2 Essay</td>
+                <td style="padding: 0.4rem;"><code>IT079IU_Lec04_Relational_Model_and_Algebra_revise.pdf</code></td>
+              </tr>
+              <tr>
+                <td style="padding: 0.4rem; font-weight:600;">SQL Queries</td>
+                <td style="padding: 0.4rem;">20T : 80P (Write)</td>
+                <td style="padding: 0.4rem;">3 MCQ + 6 Short + 2 Essay</td>
+                <td style="padding: 0.4rem;"><code>IT079IU_Lec05_SQL_Part1.pdf</code> & <code>Lec06_SQL_Part2.pdf</code></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div style="margin-top: 1.25rem;">
+          <h4 style="font-size: 0.85rem; font-weight: 700; margin-bottom: 0.4rem;">Unverified Items Report:</h4>
+          <p style="font-size: 0.82rem; color: var(--accent-success); font-weight:600;">
+            ✓ 0 unverified items. All 47 items strictly reference slides from IT079IU.
+          </p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-sm" id="btnCloseVerificationModal2">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- INLINE JAVASCRIPT ENGINE -->
+  <script>
+    /**
+     * IT079IU Midterm Study Platform
+     * Safe LocalStorage, Drawing Canvas Engines, Normalizer, and Progression Controller
+     */
+    const Storage = {
+      prefix: 'it079iu_study_',
+      get(key, defaultValue = null) {
+        try {
+          const raw = localStorage.getItem(this.prefix + key);
+          return raw ? JSON.parse(raw) : defaultValue;
+        } catch (e) {
+          console.warn('LocalStorage get error:', e);
+          return defaultValue;
+        }
+      },
+      set(key, value) {
+        try {
+          localStorage.setItem(this.prefix + key, JSON.stringify(value));
+          return true;
+        } catch (e) {
+          console.warn('LocalStorage set error:', e);
+          return false;
+        }
+      },
+      remove(key) {
+        try {
+          localStorage.removeItem(this.prefix + key);
+        } catch (e) {
+          console.warn('LocalStorage remove error:', e);
+        }
+      },
+      clearAll() {
+        try {
+          Object.keys(localStorage).forEach(k => {
+            if (k.startsWith(this.prefix)) {
+              localStorage.removeItem(k);
+            }
+          });
+        } catch (e) {
+          console.warn('LocalStorage clear error:', e);
+        }
+      }
+    };
+
+    /**
+     * Normalized keyword & token matcher for short exercises
+     */
+    const TextNormalizer = {
+      clean(text) {
+        if (!text) return '';
+        return text
+          .toLowerCase()
+          .replace(/[\u2018\u2019]/g, "'")
+          .replace(/[\u201C\u201D]/g, '"')
+          .replace(/\s+/g, ' ')
+          .trim();
+      },
+      checkKeywords(studentText, requiredKeywords = [], forbiddenKeywords = []) {
+        const cleaned = this.clean(studentText);
+        const missing = [];
+        const presentForbidden = [];
+
+        requiredKeywords.forEach(kw => {
+          const normKw = this.clean(kw);
+          if (!cleaned.includes(normKw)) {
+            missing.push(kw);
+          }
+        });
+
+        forbiddenKeywords.forEach(kw => {
+          const normKw = this.clean(kw);
+          if (cleaned.includes(normKw)) {
+            presentForbidden.push(kw);
+          }
+        });
+
+        const isCorrect = missing.length === 0 && presentForbidden.length === 0;
+        return { isCorrect, missing, presentForbidden };
+      }
+    };
+
+    /**
+     * Vector SVG Drawing Canvas Engine (used for both ERD and Expression Tree)
+     */
+    class SvgDrawingEngine {
+      constructor(svgId, options = {}) {
+        this.svg = document.getElementById(svgId);
+        this.options = options;
+        this.nodes = [];
+        this.edges = [];
+        this.selectedNodeId = null;
+        this.selectedEdgeId = null;
+        this.mode = 'select'; // 'select' | 'connect'
+        this.connectStartNode = null;
+        this.nextId = 1;
+
+        this.nodesGroup = this.svg.querySelector(`#${svgId.replace('Canvas', 'NodesGroup')}`) || this.svg;
+        this.edgesGroup = this.svg.querySelector(`#${svgId.replace('Canvas', 'EdgesGroup')}`) || this.svg;
+
+        this.initEvents();
+      }
+
+      initEvents() {
+        this.svg.addEventListener('dragover', (e) => {
+          e.preventDefault();
+          e.dataTransfer.dropEffect = 'copy';
+        });
+
+        this.svg.addEventListener('drop', (e) => {
+          e.preventDefault();
+          const type = e.dataTransfer.getData('text/plain') || e.dataTransfer.getData('type');
+          const symbol = e.dataTransfer.getData('symbol');
+          if (!type) return;
+
+          const rect = this.svg.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+
+          this.addNode({
+            type,
+            symbol: symbol || '',
+            x: Math.round(x / 10) * 10,
+            y: Math.round(y / 10) * 10,
+            label: this.getDefaultLabel(type, symbol)
+          });
+        });
+
+        this.svg.addEventListener('click', (e) => {
+          if (e.target === this.svg || (e.target.tagName === 'rect' && e.target.getAttribute('fill')?.includes('Grid'))) {
+            this.clearSelection();
+          }
+        });
+      }
+
+      getDefaultLabel(type, symbol) {
+        if (symbol) return symbol;
+        switch(type) {
+          case 'entity': return 'ENTITY';
+          case 'weak-entity': return 'WEAK ENTITY';
+          case 'attribute': return 'attribute';
+          case 'key-attribute': return 'id_pk';
+          case 'multivalued-attribute': return 'multi_attr';
+          case 'derived-attribute': return 'derived_attr';
+          case 'relationship': return 'REL';
+          case 'identifying-relationship': return 'IDENT_REL';
+          case 'tree-op': return 'σ';
+          case 'tree-relation': return 'RELATION';
+          default: return 'Item';
+        }
+      }
+
+      addNode(data) {
+        const id = 'n_' + (this.nextId++);
+        const node = {
+          id,
+          type: data.type,
+          label: data.label || 'Node',
+          symbol: data.symbol || '',
+          x: data.x || 100,
+          y: data.y || 100,
+          width: this.getNodeWidth(data.type),
+          height: this.getNodeHeight(data.type)
+        };
+        this.nodes.push(node);
+        this.render();
+        this.selectNode(node.id);
+        if (this.options.onChange) this.options.onChange();
+        return node;
+      }
+
+      getNodeWidth(type) {
+        if (type.includes('attribute')) return 110;
+        if (type.includes('relationship')) return 100;
+        if (type === 'tree-op') return 60;
+        if (type === 'tree-relation') return 90;
+        return 120;
+      }
+
+      getNodeHeight(type) {
+        if (type.includes('attribute')) return 46;
+        if (type.includes('relationship')) return 60;
+        if (type === 'tree-op') return 44;
+        if (type === 'tree-relation') return 40;
+        return 50;
+      }
+
+      addEdge(fromId, toId, properties = {}) {
+        if (fromId === toId) return;
+        const existing = this.edges.find(e => (e.from === fromId && e.to === toId) || (e.from === toId && e.to === fromId));
+        if (existing) {
+          existing.properties = { ...existing.properties, ...properties };
+          this.render();
+          if (this.options.onChange) this.options.onChange();
+          return;
+        }
+
+        const edge = {
+          id: 'e_' + (this.nextId++),
+          from: fromId,
+          to: toId,
+          properties: properties
+        };
+        this.edges.push(edge);
+        this.render();
+        if (this.options.onChange) this.options.onChange();
+      }
+
+      deleteSelected() {
+        if (this.selectedNodeId) {
+          this.nodes = this.nodes.filter(n => n.id !== this.selectedNodeId);
+          this.edges = this.edges.filter(e => e.from !== this.selectedNodeId && e.to !== this.selectedNodeId);
+          this.selectedNodeId = null;
+        }
+        if (this.selectedEdgeId) {
+          this.edges = this.edges.filter(e => e.id !== this.selectedEdgeId);
+          this.selectedEdgeId = null;
+        }
+        this.render();
+        if (this.options.onChange) this.options.onChange();
+      }
+
+      clear() {
+        this.nodes = [];
+        this.edges = [];
+        this.selectedNodeId = null;
+        this.selectedEdgeId = null;
+        this.connectStartNode = null;
+        this.render();
+        if (this.options.onChange) this.options.onChange();
+      }
+
+      selectNode(id) {
+        if (this.mode === 'connect') {
+          if (!this.connectStartNode) {
+            this.connectStartNode = id;
+            this.selectedNodeId = id;
+            this.render();
+          } else {
+            const props = this.options.getConnectProperties ? this.options.getConnectProperties() : {};
+            this.addEdge(this.connectStartNode, id, props);
+            this.connectStartNode = null;
+            this.clearSelection();
+          }
+          return;
+        }
+
+        this.selectedNodeId = id;
+        this.selectedEdgeId = null;
+        this.render();
+      }
+
+      clearSelection() {
+        this.selectedNodeId = null;
+        this.selectedEdgeId = null;
+        this.connectStartNode = null;
+        this.render();
+      }
+
+      render() {
+        this.edgesGroup.innerHTML = '';
+        this.nodesGroup.innerHTML = '';
+
+        // Render Edges
+        this.edges.forEach(edge => {
+          const n1 = this.nodes.find(n => n.id === edge.from);
+          const n2 = this.nodes.find(n => n.id === edge.to);
+          if (!n1 || !n2) return;
+
+          const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+          g.classList.add('svg-edge');
+          if (edge.properties.lineType === 'total') {
+            g.classList.add('total');
+          }
+
+          const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+          line.setAttribute('x1', n1.x);
+          line.setAttribute('y1', n1.y);
+          line.setAttribute('x2', n2.x);
+          line.setAttribute('y2', n2.y);
+          line.setAttribute('stroke', edge.id === this.selectedEdgeId ? 'var(--accent-primary)' : 'var(--text-primary)');
+          line.setAttribute('stroke-width', edge.properties.lineType === 'total' ? '3.5' : '1.5');
+          if (this.options.isTree) {
+            line.setAttribute('marker-end', 'url(#arrowhead)');
+          }
+          g.appendChild(line);
+
+          // Cardinality label
+          if (edge.properties.cardinality) {
+            const midX = (n1.x + n2.x) / 2;
+            const midY = (n1.y + n2.y) / 2 - 8;
+            const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+            text.setAttribute('x', midX);
+            text.setAttribute('y', midY);
+            text.setAttribute('font-size', '11');
+            text.setAttribute('font-weight', '700');
+            text.setAttribute('fill', 'var(--accent-primary)');
+            text.setAttribute('text-anchor', 'middle');
+            text.textContent = edge.properties.cardinality;
+            g.appendChild(text);
+          }
+
+          g.addEventListener('click', (e) => {
+            e.stopPropagation();
+            this.selectedEdgeId = edge.id;
+            this.selectedNodeId = null;
+            this.render();
+          });
+
+          this.edgesGroup.appendChild(g);
+        });
+
+        // Render Nodes
+        this.nodes.forEach(node => {
+          const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
+          g.classList.add('svg-node');
+          if (node.id === this.selectedNodeId || node.id === this.connectStartNode) {
+            g.classList.add('selected');
+          }
+          g.setAttribute('transform', `translate(${node.x}, ${node.y})`);
+
+          this.renderShape(g, node);
+
+          const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+          text.classList.add('svg-text');
+          text.setAttribute('x', 0);
+          text.setAttribute('y', 0);
+          if (node.type === 'key-attribute') {
+            text.setAttribute('text-decoration', 'underline');
+            text.setAttribute('font-weight', '700');
+          }
+          text.textContent = node.label;
+          g.appendChild(text);
+
+          this.attachNodeInteraction(g, node);
+          this.nodesGroup.appendChild(g);
+        });
+      }
+
+      renderShape(g, node) {
+        const hw = node.width / 2;
+        const hh = node.height / 2;
+        const isSelected = node.id === this.selectedNodeId;
+        const strokeColor = isSelected ? 'var(--accent-primary)' : 'var(--text-primary)';
+        const fillColor = 'var(--bg-surface)';
+
+        if (node.type === 'entity') {
+          const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+          rect.setAttribute('x', -hw);
+          rect.setAttribute('y', -hh);
+          rect.setAttribute('width', node.width);
+          rect.setAttribute('height', node.height);
+          rect.setAttribute('rx', '4');
+          rect.setAttribute('fill', fillColor);
+          rect.setAttribute('stroke', strokeColor);
+          rect.setAttribute('stroke-width', '1.8');
+          g.appendChild(rect);
+        } else if (node.type === 'weak-entity') {
+          const outer = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+          outer.setAttribute('x', -hw);
+          outer.setAttribute('y', -hh);
+          outer.setAttribute('width', node.width);
+          outer.setAttribute('height', node.height);
+          outer.setAttribute('rx', '4');
+          outer.setAttribute('fill', fillColor);
+          outer.setAttribute('stroke', strokeColor);
+          outer.setAttribute('stroke-width', '1.8');
+          g.appendChild(outer);
+
+          const inner = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+          inner.setAttribute('x', -hw + 4);
+          inner.setAttribute('y', -hh + 4);
+          inner.setAttribute('width', node.width - 8);
+          inner.setAttribute('height', node.height - 8);
+          inner.setAttribute('rx', '2');
+          inner.setAttribute('fill', 'transparent');
+          inner.setAttribute('stroke', strokeColor);
+          inner.setAttribute('stroke-width', '1.4');
+          g.appendChild(inner);
+        } else if (node.type.includes('attribute')) {
+          const ellipse = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+          ellipse.setAttribute('cx', 0);
+          ellipse.setAttribute('cy', 0);
+          ellipse.setAttribute('rx', hw);
+          ellipse.setAttribute('ry', hh);
+          ellipse.setAttribute('fill', fillColor);
+          ellipse.setAttribute('stroke', strokeColor);
+          ellipse.setAttribute('stroke-width', '1.5');
+          if (node.type === 'derived-attribute') {
+            ellipse.setAttribute('stroke-dasharray', '4,3');
+          }
+          g.appendChild(ellipse);
+
+          if (node.type === 'multivalued-attribute') {
+            const inner = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+            inner.setAttribute('cx', 0);
+            inner.setAttribute('cy', 0);
+            inner.setAttribute('rx', hw - 4);
+            inner.setAttribute('ry', hh - 4);
+            inner.setAttribute('fill', 'transparent');
+            inner.setAttribute('stroke', strokeColor);
+            inner.setAttribute('stroke-width', '1.2');
+            g.appendChild(inner);
+          }
+        } else if (node.type.includes('relationship')) {
+          const diamond = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+          const pts = `0,${-hh} ${hw},0 0,${hh} ${-hw},0`;
+          diamond.setAttribute('points', pts);
+          diamond.setAttribute('fill', fillColor);
+          diamond.setAttribute('stroke', strokeColor);
+          diamond.setAttribute('stroke-width', '1.8');
+          g.appendChild(diamond);
+
+          if (node.type === 'identifying-relationship') {
+            const inner = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+            const inPts = `0,${-hh + 5} ${hw - 5},0 0,${hh - 5} ${-hw + 5},0`;
+            inner.setAttribute('points', inPts);
+            inner.setAttribute('fill', 'transparent');
+            inner.setAttribute('stroke', strokeColor);
+            inner.setAttribute('stroke-width', '1.4');
+            g.appendChild(inner);
+          }
+        } else if (node.type === 'tree-op') {
+          const circle = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+          circle.setAttribute('cx', 0);
+          circle.setAttribute('cy', 0);
+          circle.setAttribute('rx', hw);
+          circle.setAttribute('ry', hh);
+          circle.setAttribute('fill', fillColor);
+          circle.setAttribute('stroke', strokeColor);
+          circle.setAttribute('stroke-width', '1.8');
+          g.appendChild(circle);
+        } else if (node.type === 'tree-relation') {
+          const rect = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+          rect.setAttribute('x', -hw);
+          rect.setAttribute('y', -hh);
+          rect.setAttribute('width', node.width);
+          rect.setAttribute('height', node.height);
+          rect.setAttribute('rx', '4');
+          rect.setAttribute('fill', 'var(--bg-surface-alt)');
+          rect.setAttribute('stroke', strokeColor);
+          rect.setAttribute('stroke-width', '1.6');
+          g.appendChild(rect);
+        }
+      }
+
+      attachNodeInteraction(g, node) {
+        let isDragging = false;
+        let startX, startY;
+        let initNodeX, initNodeY;
+
+        g.addEventListener('mousedown', (e) => {
+          e.stopPropagation();
+          if (this.mode === 'connect') {
+            this.selectNode(node.id);
+            return;
+          }
+
+          this.selectNode(node.id);
+          isDragging = true;
+          startX = e.clientX;
+          startY = e.clientY;
+          initNodeX = node.x;
+          initNodeY = node.y;
+
+          const onMouseMove = (moveEvent) => {
+            if (!isDragging) return;
+            const dx = moveEvent.clientX - startX;
+            const dy = moveEvent.clientY - startY;
+            node.x = Math.max(30, initNodeX + dx);
+            node.y = Math.max(30, initNodeY + dy);
+            this.render();
+          };
+
+          const onMouseUp = () => {
+            isDragging = false;
+            window.removeEventListener('mousemove', onMouseMove);
+            window.removeEventListener('mouseup', onMouseUp);
+            if (this.options.onChange) this.options.onChange();
+          };
+
+          window.addEventListener('mousemove', onMouseMove);
+          window.addEventListener('mouseup', onMouseUp);
+        });
+
+        g.addEventListener('dblclick', (e) => {
+          e.stopPropagation();
+          const newLabel = prompt('Edit label / symbol:', node.label);
+          if (newLabel !== null && newLabel.trim() !== '') {
+            node.label = newLabel.trim();
+            this.render();
+            if (this.options.onChange) this.options.onChange();
+          }
+        });
+      }
+
+      serialize() {
+        return {
+          nodes: this.nodes,
+          edges: this.edges,
+          nextId: this.nextId
+        };
+      }
+
+      deserialize(data) {
+        if (!data) return;
+        this.nodes = data.nodes || [];
+        this.edges = data.edges || [];
+        this.nextId = data.nextId || (this.nodes.length + this.edges.length + 1);
+        this.render();
+      }
+    }
+
+    /**
+     * Study Data Store & Progression Engine
+     * All items require a verified source (file + slide).
+     */
+    const AppState = {
+      progress: {
+        stage1: {},
+        stage2: {},
+        stage3: {
+          currentStep: 1,
+          scenarioId: '1',
+          submitted: false,
+          erdData: null,
+          schemaText: '',
+          raText: '',
+          treeData: null,
+          sqlText: '',
+          rubricChecked: {},
+          score: 0
+        },
+        reviewList: [],
+        theme: 'light'
+      },
+      topics: {
+        erd: { title: 'ERD Modeling', ratio: '30T : 70P', total: 9, completed: 0 },
+        mapping: { title: 'ERD → Relational', ratio: '30T : 70P', total: 9, completed: 0 },
+        ra: { title: 'Relational Algebra', ratio: '30T : 70P', total: 10, completed: 0 },
+        tree: { title: 'Expression Tree', ratio: '20T : 80P', total: 8, completed: 0 },
+        sql: { title: 'SQL Queries', ratio: '20T : 80P', total: 9, completed: 0 }
+      },
+      data: {
+        // 15 VERIFIED MULTIPLE CHOICE QUESTIONS
+        mcq: [
+          {
+            id: 'mcq_1',
+            topic: 'erd',
+            source: 'IT079IU_Lec02_ER_Model_revise.pdf, Slide 18-19',
+            verified: true,
+            question: "Under what condition is an entity set defined as a 'weak entity set'?",
+            options: [
+              { key: 'A', text: "When it has fewer than three attributes in its definition." },
+              { key: 'B', text: "When it cannot be identified by its own attributes alone and depends on an owner entity reached through an identifying relationship." },
+              { key: 'C', text: "When it participates in a many-to-many relationship with another entity." },
+              { key: 'D', text: "When it contains a composite primary key." }
+            ],
+            correctOption: 'B',
+            explanation: "A weak entity cannot be identified by its own attributes alone and depends on an owner entity reached through an identifying relationship (drawn with a double diamond). Its partial key is combined with the owner's primary key.",
+            whyWrong: {
+              A: "Attribute count does not determine weakness; a strong entity can have only one or two attributes.",
+              C: "Participating in an M:N relationship does not make an entity weak; weak entities have a 1:N identifying relationship with their owner.",
+              D: "Having a composite primary key is common for regular or relationship tables, not specifically weak entities."
+            }
+          },
+          {
+            id: 'mcq_2',
+            topic: 'erd',
+            source: 'IT079IU_Lec02_ER_Model_revise.pdf, Slide 39-40',
+            verified: true,
+            question: "In the course's ER diagram notation, what does a straight arrow entering an entity set from a relationship mean?",
+            options: [
+              { key: 'A', text: "Total participation of that entity set in the relationship." },
+              { key: 'B', text: "At most one instance of that entity set per match on the other side (Many-to-One)." },
+              { key: 'C', text: "A multivalued attribute connection." },
+              { key: 'D', text: "That the entity is a weak entity." }
+            ],
+            correctOption: 'B',
+            explanation: "An arrow entering an entity means 'at most one' of that entity per match on the other side. A straight arrow into B means N:1 from A to B. A rounded arrow adds total participation (exactly one B per A).",
+            whyWrong: {
+              A: "Total participation is represented by a double line (or rounded arrow), not a straight arrow.",
+              C: "Multivalued attributes are drawn as double ellipses, not relationship arrows.",
+              D: "Weak entities are indicated by a double rectangle."
+            }
+          },
+          {
+            id: 'mcq_3',
+            topic: 'erd',
+            source: 'IT079IU_Lec02_ER_Model_revise.pdf, Slide 75-76',
+            verified: true,
+            question: "According to the course design rules, an entity set must satisfy at least one of which two conditions?",
+            options: [
+              { key: 'A', text: "It must have at least one foreign key, or be involved in a ternary relationship." },
+              { key: 'B', text: "It is more than a name (has at least one non-key attribute), or is the 'many' side of a many-one or many-many relationship." },
+              { key: 'C', text: "It must possess a single-attribute key, or be a subclass in an ISA hierarchy." },
+              { key: 'D', text: "It must have total participation in all connected relationships." }
+            ],
+            correctOption: 'B',
+            explanation: "An entity set must either have at least one non-key attribute (e.g. Manfs(name, addr)) or be the 'many' side of a relationship (e.g. Beers in ManfBy). If only a name is recorded and it is not on the 'many' side, it should be an attribute, not an entity set.",
+            whyWrong: {
+              A: "Foreign keys belong to relational schemas, not conceptual ERDs.",
+              C: "Single-attribute keys and ISA hierarchies are optional features, not prerequisites for entity sets.",
+              D: "Total participation in all relationships is rarely required and never defines an entity set."
+            }
+          },
+          {
+            id: 'mcq_4',
+            topic: 'mapping',
+            source: 'IT079IU_Lec03_ER_to_Relational_revise.pdf, Slide 14, 25',
+            verified: true,
+            question: "When converting a binary 1:N relationship from an ERD into a relational schema, where does the foreign key go?",
+            options: [
+              { key: 'A', text: "Into the table on the 1 side." },
+              { key: 'B', text: "Into the table on the N side." },
+              { key: 'C', text: "Always into a newly created relationship table." },
+              { key: 'D', text: "Into both tables simultaneously." }
+            ],
+            correctOption: 'B',
+            explanation: "Rule for Binary 1:N: Identify S as the entity on the N side; insert the primary key of the 1-side entity (T) into S as a foreign key, along with any relationship attributes.",
+            whyWrong: {
+              A: "Putting the foreign key on the 1 side would require storing a list of keys in a single cell (violating 1NF) or duplicating rows.",
+              C: "A separate table is possible but rarely used for 1:N because putting the FK on the N side avoids extra joins.",
+              D: "Placing foreign keys on both sides creates circular dependency and redundancy."
+            }
+          },
+          {
+            id: 'mcq_5',
+            topic: 'mapping',
+            source: 'IT079IU_Lec03_ER_to_Relational_revise.pdf, Slide 12, 23',
+            verified: true,
+            question: "When converting a weak entity set DEPENDENT (with partial key Dependent_name) owned by EMPLOYEE (PK: Ssn), what is the primary key of the resulting DEPENDENT table?",
+            options: [
+              { key: 'A', text: "Dependent_name alone." },
+              { key: 'B', text: "Essn alone (the foreign key referencing EMPLOYEE)." },
+              { key: 'C', text: "The composite key (Essn, Dependent_name)." },
+              { key: 'D', text: "A surrogate auto-increment key." }
+            ],
+            correctOption: 'C',
+            explanation: "Step 2 Weak Entity Types: The weak entity table takes the owner's primary key as a foreign key. The primary key of the weak entity table is the owner's key plus the weak entity's partial key: PK = (Essn, Dependent_name).",
+            whyWrong: {
+              A: "Dependent_name is only a partial key (dashed underline); two employees may have dependents with the same name.",
+              B: "Essn alone cannot identify dependents because one employee can have multiple dependents.",
+              D: "While surrogate keys exist in production, the relational mapping algorithm specifies owner PK + partial key."
+            }
+          },
+          {
+            id: 'mcq_6',
+            topic: 'mapping',
+            source: 'IT079IU_Lec03_ER_to_Relational_revise.pdf, Slide 16, 27',
+            verified: true,
+            question: "How is a multivalued attribute (such as DEPT_LOCATIONS of DEPARTMENT) mapped into a relational schema?",
+            options: [
+              { key: 'A', text: "As a comma-separated string attribute inside the DEPARTMENT table." },
+              { key: 'B', text: "As a new table with the owner's primary key as a foreign key, and PK = (foreign key + attribute)." },
+              { key: 'C', text: "As multiple numbered columns: Loc1, Loc2, Loc3 in the main table." },
+              { key: 'D', text: "As an outer join view." }
+            ],
+            correctOption: 'B',
+            explanation: "Step 6 Multivalued Attributes: Create a new table for each multivalued attribute. Include the primary key of the owning entity as a foreign key. The primary key is the foreign key plus the attribute: DEPT_LOCATIONS(Dnumber, Dlocation) with PK = (Dnumber, Dlocation).",
+            whyWrong: {
+              A: "Comma-separated strings violate the relational principle that one cell holds one atomic value (1NF).",
+              C: "Adding fixed numbered columns wastes space with NULLs and limits the maximum number of values.",
+              D: "An outer join view is a query mechanism, not a schema mapping construct."
+            }
+          },
+          {
+            id: 'mcq_7',
+            topic: 'ra',
+            source: 'IT079IU_Lec04_Relational_Model_and_Algebra_revise.pdf, Slide 24-25',
+            verified: true,
+            question: "What happens to duplicate rows when the Relational Algebra projection operator π is applied?",
+            options: [
+              { key: 'A', text: "Duplicate rows are preserved, exactly like a basic SQL SELECT statement." },
+              { key: 'B', text: "Duplicate rows are automatically removed, because a relation is a mathematical set." },
+              { key: 'C', text: "An error is thrown if duplicates are encountered." },
+              { key: 'D', text: "Duplicate rows are replaced by NULL values." }
+            ],
+            correctOption: 'B',
+            explanation: "In Relational Algebra, every relation is a set of tuples. Since sets contain no duplicates, π automatically removes duplicate rows. In SQL, duplicate elimination requires explicitly specifying SELECT DISTINCT.",
+            whyWrong: {
+              A: "Preserving duplicates is bag semantics (multiset) used by SQL without DISTINCT.",
+              C: "Relational algebra operations never fail on duplicate values; set closure handles deduplication silently.",
+              D: "NULL is not generated by projection."
+            }
+          },
+          {
+            id: 'mcq_8',
+            topic: 'ra',
+            source: 'IT079IU_Lec04_Relational_Model_and_Algebra_revise.pdf, Slide 29, 49-51',
+            verified: true,
+            question: "Which of the six core Relational Algebra operators is the ONLY non-monotone operator?",
+            options: [
+              { key: 'A', text: "Selection (σ)" },
+              { key: 'B', text: "Projection (π)" },
+              { key: 'C', text: "Cross Product (×)" },
+              { key: 'D', text: "Difference (−)" }
+            ],
+            correctOption: 'D',
+            explanation: "An operator is monotone when R ⊆ R' implies op(R) ⊆ op(R'). Difference (R − S) is monotone in R but non-monotone in S. Therefore, any query containing 'all', 'no', or 'highest' must use difference somewhere.",
+            whyWrong: {
+              A: "Selection is monotone: adding rows to the input can only add rows to the output.",
+              B: "Projection is monotone: adding tuples to the input cannot remove tuples from the output.",
+              C: "Cross product is monotone: adding rows to either input table only increases the result combinations."
+            }
+          },
+          {
+            id: 'mcq_9',
+            topic: 'ra',
+            source: 'IT079IU_Lec04_Relational_Model_and_Algebra_revise.pdf, Slide 23',
+            verified: true,
+            question: "Why is 'σ price >= every price (Serves)' NOT a valid selection in Relational Algebra?",
+            options: [
+              { key: 'A', text: "Because price is a numeric attribute and cannot be compared." },
+              { key: 'B', text: "Because the condition in selection must be decidable for one row at a time." },
+              { key: 'C', text: "Because the Serves relation must first be renamed using ρ." },
+              { key: 'D', text: "Because relational algebra does not permit '>=' comparisons." }
+            ],
+            correctOption: 'B',
+            explanation: "The rule for selection is: the condition must be decidable for one row at a time. 'The most expensive beer' compares a row against every other row, which requires a self-join and a difference, or aggregation.",
+            whyWrong: {
+              A: "Numeric comparisons are fully supported in selection predicates.",
+              C: "Renaming is not the reason selection fails; the conceptual limitation is the row-at-a-time evaluation rule.",
+              D: "Comparisons (=, <>, <, >, <=, >=) are all standard in selection predicates."
+            }
+          },
+          {
+            id: 'mcq_10',
+            topic: 'ra',
+            source: 'IT079IU_Lec04_Relational_Model_and_Algebra_revise.pdf, Slide 38, 56',
+            verified: true,
+            question: "What happens in Relational Algebra if you perform a Natural Join (R ⋈ S) between two relations that share NO common attribute names?",
+            options: [
+              { key: 'A', text: "It returns an empty relation (0 rows)." },
+              { key: 'B', text: "It evaluates to the full Cartesian Cross Product (R × S)." },
+              { key: 'C', text: "It causes an illegal schema mismatch error." },
+              { key: 'D', text: "It automatically joins on the primary keys." }
+            ],
+            correctOption: 'B',
+            explanation: "Natural join joins on every identically named column. If there are no common column names, no equality conditions exist, so R ⋈ S becomes a full Cartesian product (R × S). This is listed as common mistake #4 in the course.",
+            whyWrong: {
+              A: "An empty relation only occurs when common attributes have no matching values.",
+              C: "Relational algebra treats the absence of common column names as zero equality conditions, not an error.",
+              D: "Natural join is based entirely on attribute names, not designated key constraints."
+            }
+          },
+          {
+            id: 'mcq_11',
+            topic: 'tree',
+            source: 'IT079IU_Lec04_Relational_Model_and_Algebra_revise.pdf, Slide 46',
+            verified: true,
+            question: "In an Expression Tree for the query π address (Bar ⋈ bar=name (σ drinker='Dan' (Frequents))), why is σ placed directly above Frequents instead of after the join?",
+            options: [
+              { key: 'A', text: "Because moving σ up the tree keeps the answer but costs more work (evaluating σ early reduces rows entering the join)." },
+              { key: 'B', text: "Because placing σ after the join produces an incorrect answer." },
+              { key: 'C', text: "Because Relational Algebra forbids selection after join." },
+              { key: 'D', text: "Because Bar does not have a drinker attribute." }
+            ],
+            correctOption: 'A',
+            explanation: "Slide 46 note: 'Moving σ up the tree keeps the answer but costs more work.' Pushing selection down reduces relation cardinalities before the expensive join is evaluated.",
+            whyWrong: {
+              B: "Both expressions produce the identical answer; the difference is execution efficiency.",
+              C: "Selection can legally appear anywhere in an expression tree where the predicate attributes exist.",
+              D: "Bar does not have a drinker attribute, but Frequents does, which is why σ can be pushed directly to Frequents."
+            }
+          },
+          {
+            id: 'mcq_12',
+            topic: 'tree',
+            source: 'IT079IU_Lec04_Relational_Model_and_Algebra_revise.pdf, Slide 48',
+            verified: true,
+            question: "What is the correct operator precedence in Relational Algebra from highest to lowest?",
+            options: [
+              { key: 'A', text: "[∪, −] > [∩] > [×, ⋈] > [σ, π, ρ]" },
+              { key: 'B', text: "[σ, π, ρ] > [×, ⋈] > [∩] > [∪, −]" },
+              { key: 'C', text: "[×, ⋈] > [σ, π, ρ] > [∪, −] > [∩]" },
+              { key: 'D', text: "All operators have identical precedence." }
+            ],
+            correctOption: 'B',
+            explanation: "Course Precedence Hierarchy: (1) σ, π, ρ: highest precedence; (2) × and ⋈; (3) ∩; (4) ∪ and −: lowest precedence.",
+            whyWrong: {
+              A: "This is the exact reverse of the correct hierarchy.",
+              C: "Unary operators (σ, π, ρ) bind tighter than binary products and joins.",
+              D: "Relational algebra has well-defined operator precedence."
+            }
+          },
+          {
+            id: 'mcq_13',
+            topic: 'sql',
+            source: 'IT079IU_Lec06_SQL_Part2.pdf, Slide 34, 66',
+            verified: true,
+            question: "Why does the SQL query 'SELECT S.sname, MAX(S.age) FROM Sailors S;' cause an error in standard SQL?",
+            options: [
+              { key: 'A', text: "Because MAX() can only be computed on integer attributes." },
+              { key: 'B', text: "Because sname is a plain attribute that is neither aggregated nor listed in a GROUP BY clause." },
+              { key: 'C', text: "Because table aliases must be defined with AS." },
+              { key: 'D', text: "Because MAX() requires a subquery." }
+            ],
+            correctOption: 'B',
+            explanation: "'The Oldest Sailor - a Classic Trap': SELECT S.sname, MAX(S.age) is ILLEGAL because sname is not a grouping attribute. Every plain attribute in the SELECT list must appear in the GROUP BY clause.",
+            whyWrong: {
+              A: "MAX() works on reals, dates, integers, and text.",
+              C: "Table aliases in SQL are optional or can be declared without AS.",
+              D: "MAX() does not require a subquery when aggregating an entire table or group."
+            }
+          },
+          {
+            id: 'mcq_14',
+            topic: 'sql',
+            source: 'IT079IU_Lec06_SQL_Part2.pdf, Slide 33',
+            verified: true,
+            question: "Why is 'SELECT S.rating FROM Sailors S WHERE S.age = (SELECT MIN(AVG(S2.age)) FROM Sailors S2);' invalid?",
+            options: [
+              { key: 'A', text: "Aggregates cannot be nested inside each other directly (MIN(AVG(...)) is illegal)." },
+              { key: 'B', text: "A WHERE clause cannot contain a subquery." },
+              { key: 'C', text: "Sailors S2 cannot refer to the same table as Sailors S." },
+              { key: 'D', text: "The outer SELECT requires a GROUP BY clause." }
+            ],
+            correctOption: 'A',
+            explanation: "Aggregates cannot be nested. To find the minimum of averages, compute the averages first in a subquery with GROUP BY, then take the MIN of that computed column.",
+            whyWrong: {
+              B: "Subqueries in WHERE clauses are a core feature of SQL.",
+              C: "Self-joins and self-referencing subqueries with distinct aliases are completely legal.",
+              D: "The outer query is a row filter and does not require grouping."
+            }
+          },
+          {
+            id: 'mcq_15',
+            topic: 'sql',
+            source: 'IT079IU_Lec06_SQL_Part2.pdf, Slide 51-53',
+            verified: true,
+            question: "In SQL's three-valued logic, what does the comparison expression (rating = NULL) evaluate to?",
+            options: [
+              { key: 'A', text: "TRUE" },
+              { key: 'B', text: "FALSE" },
+              { key: 'C', text: "UNKNOWN" },
+              { key: 'D', text: "NULL" }
+            ],
+            correctOption: 'C',
+            explanation: "In SQL, comparing any value to NULL using '=' or '<>' evaluates to UNKNOWN (0.5 in 3VL). WHERE clauses keep only rows that evaluate to TRUE, dropping both FALSE and UNKNOWN. Always use IS NULL or IS NOT NULL.",
+            whyWrong: {
+              A: "Comparison with NULL never evaluates to TRUE.",
+              B: "It does not evaluate to FALSE; SQL uses three-valued logic where missing information is UNKNOWN.",
+              D: "The result of a boolean comparison is a truth value (TRUE, FALSE, UNKNOWN), not a data value NULL."
+            }
+          }
+        ],
+
+        // 30 VERIFIED SHORT EXERCISES (6 per topic)
+        short: [
+          // Topic 1: ERD (6 exercises)
+          {
+            id: 'sh_erd_1',
+            topic: 'erd',
+            source: 'IT079IU_Lec02_ER_Model_revise.pdf, Slide 32, 36',
+            verified: true,
+            prompt: "Identify the relationship cardinality: 'Each student is assigned to at most one advisor, and an advisor advises many students.' State the relationship cardinality from Student to Advisor.",
+            snippet: "Student (at most one advisor) ---- Advisor (many students)",
+            requiredKeywords: ['1:n', 'many-to-one'],
+            modelAnswer: "Many-to-one (N:1 from Student to Advisor, or 1:N from Advisor to Student)",
+            explanation: "Each student matches at most one advisor, while each advisor matches multiple students."
+          },
+          {
+            id: 'sh_erd_2',
+            topic: 'erd',
+            source: 'IT079IU_Lec02_ER_Model_revise.pdf, Slide 61',
+            verified: true,
+            prompt: "In the university database ERD, why is SECTION classified as a weak entity set?",
+            snippet: "STUDENT ---- ENROLLS ---- SECTION ==== HAS ==== COURSE",
+            requiredKeywords: ['repeat', 'course'],
+            modelAnswer: "Section numbers (1, 2, 3...) repeat in every course; a section cannot be identified without its owning Course (CourseID + SecNo).",
+            explanation: "Weak entities have no global identifier and rely on an identifying relationship with their owner."
+          },
+          {
+            id: 'sh_erd_3',
+            topic: 'erd',
+            source: 'IT079IU_Lec02_ER_Model_revise.pdf, Slide 21-22',
+            verified: true,
+            prompt: "How is a composite attribute such as Fullname (composed of First, Middle, Last) represented in an ER diagram?",
+            snippet: "Fullname = First + Middle + Last",
+            requiredKeywords: ['ellipse', 'branch'],
+            modelAnswer: "Drawn as an ellipse for Fullname with separate ellipses for First, Middle, and Last branching off it.",
+            explanation: "Composite attributes form a tree of ellipses attached to the entity."
+          },
+          {
+            id: 'sh_erd_4',
+            topic: 'erd',
+            source: 'IT079IU_Lec02_ER_Model_revise.pdf, Slide 75-76',
+            verified: true,
+            prompt: "According to course design guidelines, when should a concept be modeled as a simple attribute rather than a separate entity set?",
+            snippet: "Beers(name, manf) vs Beers(name) --- ManfBy --- Manfs(name)",
+            requiredKeywords: ['only', 'name'],
+            modelAnswer: "When only a name is recorded (no non-key attributes) and it is not on the 'many' side of any relationship.",
+            explanation: "If only a manufacturer name is recorded, Beers(name, manf) as an attribute avoids unnecessary entity sets and joins."
+          },
+          {
+            id: 'sh_erd_5',
+            topic: 'erd',
+            source: 'IT079IU_Lec02_ER_Model_revise.pdf, Slide 12, 19',
+            verified: true,
+            prompt: "What ER diagram symbol represents an identifying relationship between a weak entity and its owner?",
+            snippet: "SECTION ==================== [?] ==================== COURSE",
+            requiredKeywords: ['double diamond'],
+            modelAnswer: "Double diamond",
+            explanation: "Identifying relationships are drawn with a double diamond, and the weak entity connects with a double line (total participation)."
+          },
+          {
+            id: 'sh_erd_6',
+            topic: 'erd',
+            source: 'IT079IU_Lec02_ER_Model_revise.pdf, Slide 45',
+            verified: true,
+            prompt: "Why can a ternary relationship Drinks(Drinker, Beer, Bar) NOT be replaced by three binary relationships Likes(Drinker, Beer), Sells(Bar, Beer), and Frequents(Drinker, Bar)?",
+            snippet: "Drinks(Drinker, Beer, Bar)",
+            requiredKeywords: ['joint', 'break'],
+            modelAnswer: "An N-ary relationship holds joint facts that break if split: a drinker may like a beer and visit a bar, but only drink that specific beer at that specific bar.",
+            explanation: "Binary relationships cannot enforce joint 3-way constraints without losing information."
+          },
+
+          // Topic 2: ERD -> Relational (6 exercises)
+          {
+            id: 'sh_map_1',
+            topic: 'mapping',
+            source: 'IT079IU_Lec03_ER_to_Relational_revise.pdf, Slide 15, 26',
+            verified: true,
+            prompt: "Convert the binary M:N relationship WORKS_ON between EMPLOYEE (PK: Ssn) and PROJECT (PK: Pnumber) carrying attribute Hours into a relational table. State the table schema and primary key.",
+            snippet: "EMPLOYEE (Ssn) ---< WORKS_ON (Hours) >--- PROJECT (Pnumber)",
+            requiredKeywords: ['works_on', 'hours'],
+            modelAnswer: "WORKS_ON(Essn, Pno, Hours) with PK = (Essn, Pno), FK Essn -> EMPLOYEE(Ssn), FK Pno -> PROJECT(Pnumber)",
+            explanation: "Step 5 Binary M:N: Create a new relationship table. Both primary keys become foreign keys and together form its composite primary key."
+          },
+          {
+            id: 'sh_map_2',
+            topic: 'mapping',
+            source: 'IT079IU_Lec03_ER_to_Relational_revise.pdf, Slide 16, 27',
+            verified: true,
+            prompt: "Convert the multivalued attribute Locations of entity DEPARTMENT (PK: Dnumber) into a relational table. State the table schema and primary key.",
+            snippet: "DEPARTMENT(Dname, Dnumber) with multivalued Locations",
+            requiredKeywords: ['dept_locations', 'dlocation'],
+            modelAnswer: "DEPT_LOCATIONS(Dnumber, Dlocation) with PK = (Dnumber, Dlocation) and FK Dnumber -> DEPARTMENT(Dnumber)",
+            explanation: "Step 6 Multivalued Attributes: Create a new table with the owner's key as foreign key; PK = (foreign key + attribute)."
+          },
+          {
+            id: 'sh_map_3',
+            topic: 'mapping',
+            source: 'IT079IU_Lec03_ER_to_Relational_revise.pdf, Slide 13, 24',
+            verified: true,
+            prompt: "In mapping a 1:1 relationship MANAGES between EMPLOYEE (Ssn) and DEPARTMENT (Dnumber), which table receives the foreign key and why?",
+            snippet: "EMPLOYEE --- (1:1 MANAGES) === DEPARTMENT (total participation)",
+            requiredKeywords: ['department', 'null'],
+            modelAnswer: "DEPARTMENT receives Mgr_ssn (referencing EMPLOYEE.Ssn) because every department has a manager (total participation), which avoids NULLs.",
+            explanation: "Step 3 Binary 1:1: Prefer the side with total participation to avoid NULL foreign keys."
+          },
+          {
+            id: 'sh_map_4',
+            topic: 'mapping',
+            source: 'IT079IU_Lec03_ER_to_Relational_revise.pdf, Slide 45-46',
+            verified: true,
+            prompt: "Translate the weak entity Bank_Branch (partial key Branch_no, attribute Addr) owned by Bank (PK: Code) into a relational table.",
+            snippet: "Bank(Code, Name, Addr) ==== BRANCHES ==== Bank_Branch(Branch_no, Addr)",
+            requiredKeywords: ['bank_branch', 'code'],
+            modelAnswer: "Bank_Branch(Branch_no, Code, Addr) with PK = (Branch_no, Code) and FK Code -> Bank(Code)",
+            explanation: "Step 2 Weak Entity: The weak entity table takes the owner's primary key as a foreign key; PK = (partial key + owner key)."
+          },
+          {
+            id: 'sh_map_5',
+            topic: 'mapping',
+            source: 'IT079IU_Lec03_ER_to_Relational_revise.pdf, Slide 17, 29',
+            verified: true,
+            prompt: "Under Option A (Superclass + Subclasses) of mapping an ISA hierarchy, what attributes are stored in the subclass table SECRETARY for superclass EMPLOYEE(Ssn, Name...)?",
+            snippet: "EMPLOYEE (Ssn, Name, Bdate, Address, Job_type) <|-- SECRETARY (Typing_speed)",
+            requiredKeywords: ['ssn', 'typing_speed'],
+            modelAnswer: "SECRETARY(Ssn, Typing_speed) with PK = Ssn and FK Ssn -> EMPLOYEE(Ssn)",
+            explanation: "In Option A, each subclass table stores only its own specific attributes plus the inherited primary key."
+          },
+          {
+            id: 'sh_map_6',
+            topic: 'mapping',
+            source: 'IT079IU_Lec03_ER_to_Relational_revise.pdf, Slide 38',
+            verified: true,
+            prompt: "When an entity set appears twice in a relationship (e.g. Supervision between Employees with roles Supervisor and Supervisee), what becomes the column name in the translated table?",
+            snippet: "Employees --- (Supervisor / Supervisee) ---> Supervision",
+            requiredKeywords: ['role name'],
+            modelAnswer: "The role name, not the entity name, becomes the column name (e.g. Super_ssn in EMPLOYEE or Supervisor_id, Supervisee_id).",
+            explanation: "When an entity set appears multiple times, each role becomes its own column to avoid duplicate attribute names."
+          },
+
+          // Topic 3: Relational Algebra (6 exercises)
+          {
+            id: 'sh_ra_1',
+            topic: 'ra',
+            source: 'IT079IU_Lec04_Relational_Model_and_Algebra_revise.pdf, Slide 20, 24',
+            verified: true,
+            prompt: "Write the Relational Algebra expression for: 'Find the names of all beers brewed by Anheuser-Busch' using Beer(name, brewer).",
+            snippet: "Beer(name, brewer)",
+            requiredKeywords: ['π', 'σ', 'anheuser-busch'],
+            modelAnswer: "π name ( σ brewer = 'Anheuser-Busch' (Beer) )",
+            explanation: "First select the tuples where brewer = 'Anheuser-Busch', then project the name column."
+          },
+          {
+            id: 'sh_ra_2',
+            topic: 'ra',
+            source: 'IT079IU_Lec04_Relational_Model_and_Algebra_revise.pdf, Slide 16, 22',
+            verified: true,
+            prompt: "Given Serves(bar, beer, price), write the RA expression to find the bars that serve Budweiser at a price less than 2.75.",
+            snippet: "Serves(bar, beer, price)",
+            requiredKeywords: ['π', 'σ', 'budweiser', '2.75'],
+            modelAnswer: "π bar ( σ beer = 'Budweiser' ∧ price < 2.75 (Serves) )",
+            explanation: "Select on both conditions with logical AND (∧), then project the bar column."
+          },
+          {
+            id: 'sh_ra_3',
+            topic: 'ra',
+            source: 'IT079IU_Lec04_Relational_Model_and_Algebra_revise.pdf, Slide 54-55',
+            verified: true,
+            prompt: "Given Student(SID, Sname), Enrolled(SID, CID), and Course(CID, Cname), write the RA expression to find students (SID, Sname) enrolled in 'PDM'.",
+            snippet: "Student(SID, Sname) · Course(CID, Cname) · Enrolled(SID, CID, grade)",
+            requiredKeywords: ['π', 'student', 'enrolled', 'course', 'pdm'],
+            modelAnswer: "π SID, Sname ( Student ⋈ Enrolled ⋈ σ Cname = 'PDM' (Course) )",
+            explanation: "Join Student with Enrolled and the selected Course, then project SID and Sname."
+          },
+          {
+            id: 'sh_ra_4',
+            topic: 'ra',
+            source: 'IT079IU_Lec04_Relational_Model_and_Algebra_revise.pdf, Slide 55',
+            verified: true,
+            prompt: "Write the RA expression to find the courses (CID) in which NO student is enrolled, using Course(CID, Cname) and Enrolled(SID, CID).",
+            snippet: "Course(CID, Cname) · Enrolled(SID, CID, grade)",
+            requiredKeywords: ['π', 'cid', '−', 'enrolled'],
+            modelAnswer: "π CID (Course) − π CID (Enrolled)",
+            explanation: "Find all course IDs minus the course IDs that appear in Enrolled."
+          },
+          {
+            id: 'sh_ra_5',
+            topic: 'ra',
+            source: 'IT079IU_Lec04_Relational_Model_and_Algebra_revise.pdf, Slide 32, 62',
+            verified: true,
+            prompt: "Write the RA expression to find drinkers who frequent BOTH 'The Edge' and 'Satisfaction', using Frequents(drinker, bar, times_a_week).",
+            snippet: "Frequents(drinker, bar, times_a_week)",
+            requiredKeywords: ['π', 'drinker', 'the edge', '∩', 'satisfaction'],
+            modelAnswer: "π drinker (σ bar = 'The Edge' (Frequents)) ∩ π drinker (σ bar = 'Satisfaction' (Frequents))",
+            explanation: "Project drinkers who frequent The Edge and intersect with drinkers who frequent Satisfaction."
+          },
+          {
+            id: 'sh_ra_6',
+            topic: 'ra',
+            source: 'IT079IU_Lec04_Relational_Model_and_Algebra_revise.pdf, Slide 38-39',
+            verified: true,
+            prompt: "Express the Natural Join (R ⋈ S) in terms of projection, cross product, and selection.",
+            snippet: "R ⋈ S = ?",
+            requiredKeywords: ['π', 'σ', '×'],
+            modelAnswer: "R ⋈ S = π_L ( σ_p (R × S) ) where p equates columns with identical names and L is the union of column names without duplicates.",
+            explanation: "Natural join is a shorthand for cross product followed by equating common columns and projecting to remove duplicate columns."
+          },
+
+          // Topic 4: Expression Tree (6 exercises)
+          {
+            id: 'sh_tree_1',
+            topic: 'tree',
+            source: 'IT079IU_Lec04_Relational_Model_and_Algebra_revise.pdf, Slide 46',
+            verified: true,
+            prompt: "In the expression tree for query: π address (Bar ⋈ bar=name (σ drinker='Dan' (Frequents))), which operator sits at the ROOT of the tree?",
+            snippet: "Query: Find the addresses of all bars that Dan frequents",
+            requiredKeywords: ['π', 'projection'],
+            modelAnswer: "Projection: π address",
+            explanation: "The root of the tree is the outermost operation in the query, which is projection (π address)."
+          },
+          {
+            id: 'sh_tree_2',
+            topic: 'tree',
+            source: 'IT079IU_Lec04_Relational_Model_and_Algebra_revise.pdf, Slide 46',
+            verified: true,
+            prompt: "In that same Expression Tree, what relation is the direct child of the selection node σ drinker='Dan'?",
+            snippet: "Tree node: σ drinker='Dan'",
+            requiredKeywords: ['frequents'],
+            modelAnswer: "Frequents",
+            explanation: "The selection operates directly on the base relation Frequents."
+          },
+          {
+            id: 'sh_tree_3',
+            topic: 'tree',
+            source: 'IT079IU_Lec04_Relational_Model_and_Algebra_revise.pdf, Slide 46',
+            verified: true,
+            prompt: "What condition labels the join operator node (⋈) that combines Bar with the filtered Frequents relation?",
+            snippet: "Join node: ⋈ [?]",
+            requiredKeywords: ['bar = name', 'bar=name'],
+            modelAnswer: "bar = name",
+            explanation: "The join equates Frequents.bar with Bar.name."
+          },
+          {
+            id: 'sh_tree_4',
+            topic: 'tree',
+            source: 'IT079IU_Lec04_Relational_Model_and_Algebra_revise.pdf, Slide 15, 46',
+            verified: true,
+            prompt: "In what order are expression tree nodes evaluated during execution: root-down or leaves-up?",
+            snippet: "Root (π) ---> Join (⋈) ---> Leaves (Relations)",
+            requiredKeywords: ['leaves', 'up'],
+            modelAnswer: "Leaves-up (bottom-up): base relations and sub-expressions are evaluated first to provide input relations for parent operators.",
+            explanation: "Relational operators require input relations to produce output relations (closure property)."
+          },
+          {
+            id: 'sh_tree_5',
+            topic: 'tree',
+            source: 'IT079IU_Lec04_Relational_Model_and_Algebra_revise.pdf, Slide 48',
+            verified: true,
+            prompt: "What is the equivalent query expression in assignment form for: R3 := σ_c(R1 × R2)?",
+            snippet: "R3 := σ_c(R1 × R2)",
+            requiredKeywords: ['r1 ⋈', 'theta join'],
+            modelAnswer: "R3 := R1 ⋈c R2 (Theta-join of R1 and R2 with condition c)",
+            explanation: "Theta-join is by definition the shorthand for selection over a cross product: R1 ⋈c R2 ≡ σ_c(R1 × R2)."
+          },
+          {
+            id: 'sh_tree_6',
+            topic: 'tree',
+            source: 'IT079IU_Lec04_Relational_Model_and_Algebra_revise.pdf, Slide 48',
+            verified: true,
+            prompt: "According to course operator precedence rules, between Cartesian Product (×) and Selection (σ), which operator binds tighter?",
+            snippet: "Precedence check: σ vs ×",
+            requiredKeywords: ['σ', 'selection'],
+            modelAnswer: "Selection (σ) has highest precedence (along with π and ρ), which is higher than × and ⋈.",
+            explanation: "Unary operators (σ, π, ρ) are level 1 (highest); binary product and join are level 2."
+          },
+
+          // Topic 5: SQL Queries (6 exercises)
+          {
+            id: 'sh_sql_1',
+            topic: 'sql',
+            source: 'IT079IU_Lec06_SQL_Part2.pdf, Slide 29',
+            verified: true,
+            prompt: "Complete the missing clause to filter for ratings with two or more sailors aged at least 18:\nSELECT S.rating, MIN(S.age) AS minage\nFROM Sailors S\nWHERE S.age >= 18\nGROUP BY S.rating\n[MISSING CLAUSE];",
+            snippet: "SELECT S.rating, MIN(S.age) FROM Sailors S WHERE S.age >= 18 GROUP BY S.rating ...",
+            requiredKeywords: ['having count(*) > 1'],
+            modelAnswer: "HAVING COUNT(*) > 1",
+            explanation: "WHERE filters individual rows before grouping; HAVING filters whole groups based on aggregate conditions."
+          },
+          {
+            id: 'sh_sql_2',
+            topic: 'sql',
+            source: 'IT079IU_Lec04_Relational_Model_and_Algebra_revise.pdf, Slide 62 & Lec06 Slide 20',
+            verified: true,
+            prompt: "Fill in the missing set operator to find drinkers who frequent both bars:\nSELECT drinker FROM Frequents WHERE bar = 'The Edge'\n[MISSING OPERATOR]\nSELECT drinker FROM Frequents WHERE bar = 'Satisfaction';",
+            snippet: "SELECT ... WHERE bar = 'The Edge' [?] SELECT ... WHERE bar = 'Satisfaction';",
+            requiredKeywords: ['intersect'],
+            modelAnswer: "INTERSECT",
+            explanation: "INTERSECT returns only the rows produced by both queries, with duplicates eliminated."
+          },
+          {
+            id: 'sh_sql_3',
+            topic: 'sql',
+            source: 'IT079IU_Lec06_SQL_Part2.pdf, Slide 54',
+            verified: true,
+            prompt: "What does COUNT(rating) return on a table containing 3 rows with rating values: 7, NULL, and 10?",
+            snippet: "Values in rating: 7, NULL, 10. Query: SELECT COUNT(rating) FROM Table;",
+            requiredKeywords: ['2'],
+            modelAnswer: "2 (COUNT(column) discards NULL values before aggregating, whereas COUNT(*) would return 3)",
+            explanation: "All SQL aggregate functions except COUNT(*) ignore NULLs."
+          },
+          {
+            id: 'sh_sql_4',
+            topic: 'sql',
+            source: 'IT079IU_Lec05_SQL_Part1.pdf, Slide 37-38',
+            verified: true,
+            prompt: "Complete the foreign key definition so that deleting a student automatically deletes their enrollment records:\nFOREIGN KEY (sid) REFERENCES Students\n[MISSING CLAUSE];",
+            snippet: "FOREIGN KEY (sid) REFERENCES Students [?];",
+            requiredKeywords: ['on delete cascade'],
+            modelAnswer: "ON DELETE CASCADE",
+            explanation: "ON DELETE CASCADE propagates parent deletions down to referencing child rows."
+          },
+          {
+            id: 'sh_sql_5',
+            topic: 'sql',
+            source: 'IT079IU_Lec06_SQL_Part2.pdf, Slide 53',
+            verified: true,
+            prompt: "Write the SQL WHERE clause condition to test if an attribute 'phone' contains an unknown or missing value.",
+            snippet: "WHERE phone [?]",
+            requiredKeywords: ['is null'],
+            modelAnswer: "WHERE phone IS NULL (using '= NULL' is invalid and always evaluates to UNKNOWN)",
+            explanation: "NULL cannot be tested with '='; you must write IS NULL or IS NOT NULL."
+          },
+          {
+            id: 'sh_sql_6',
+            topic: 'sql',
+            source: 'IT079IU_Lec06_SQL_Part2.pdf, Slide 43',
+            verified: true,
+            prompt: "Complete the correlated subquery using EXISTS to find sailors who reserved boat 301:\nSELECT S.sname FROM Sailors S\nWHERE EXISTS ([MISSING LINE]\nWHERE R.bid = 301 AND S.sid = R.sid);",
+            snippet: "WHERE EXISTS ([?] WHERE R.bid = 301 AND S.sid = R.sid)",
+            requiredKeywords: ['select * from reserves r'],
+            modelAnswer: "SELECT * FROM Reserves R",
+            explanation: "EXISTS tests whether the correlated subquery returns at least one row."
+          }
+        ],
+
+        // 2 FULL ESSAY SCENARIOS
+        essayScenarios: [
+          {
+            id: '1',
+            title: 'Scenario 1: University Academic Management System',
+            source: 'IT079IU_Lec02_ER_Model_revise.pdf (Slides 60-66), Lec03 (Slide 42), Lec04 (Slide 54-55), Lec06 (Slide 48)',
+            description: "A university requires a comprehensive database system designed with the six-step process:\n1. Each student has a unique StudentID, a composite Name (first, last), a date of birth (DoB), one or more phone numbers (Phones), and computed Age.\n2. Each course has a unique CourseID, a title, and a number of credits.\n3. A course is opened as sections (SecNo 1, 2, 3...) within the course; each section runs in one semester. Section is a weak entity identified by Course.\n4. Each course is offered by exactly one department (DeptID, DName); total participation on course.\n5. Students enroll in sections and receive a grade for each one.\n6. A student is either an undergraduate (with a major) or a graduate (with a thesis title) — disjoint (d) and total participation.",
+            modelErdNotes: "Entities: STUDENT (regular, key: StudentID), SECTION (weak entity, double rectangle, partial key: SecNo), COURSE (regular, key: CourseID), DEPARTMENT (regular, key: DeptID).\nRelationships: HAS (identifying relationship, double diamond, double line on SECTION, 1:N from COURSE to SECTION), OFFERS (1:N, double line total on COURSE), ENROLLS (M:N between STUDENT and SECTION with attribute Grade).\nAttributes: Name (composite: First, Last), Phones (multivalued, double ellipse), Age (derived, dashed ellipse).\nISA hierarchy: STUDENT specializes into UNDERGRAD (Major) and GRADUATE (Thesis) with (d) and double line.",
+            modelSchema: `DEPARTMENT(DeptID, DName)
+  PK = (DeptID)
+
+COURSE(CourseID, Title, Credits, DeptID)
+  PK = (CourseID)
+  FK: DeptID -> DEPARTMENT(DeptID)
+
+SECTION(CourseID, SecNo, Semester)
+  PK = (CourseID, SecNo)
+  FK: CourseID -> COURSE(CourseID)
+
+STUDENT(StudentID, FirstName, LastName, DoB)
+  PK = (StudentID)
+
+STUDENT_PHONES(StudentID, Phone)
+  PK = (StudentID, Phone)
+  FK: StudentID -> STUDENT(StudentID)
+
+UNDERGRAD(StudentID, Major)
+  PK = (StudentID)
+  FK: StudentID -> STUDENT(StudentID)
+
+GRADUATE(StudentID, Thesis)
+  PK = (StudentID)
+  FK: StudentID -> STUDENT(StudentID)
+
+ENROLLS(StudentID, CourseID, SecNo, Grade)
+  PK = (StudentID, CourseID, SecNo)
+  FK: StudentID -> STUDENT(StudentID)
+  FK: (CourseID, SecNo) -> SECTION(CourseID, SecNo)`,
+            modelRA: `Query: Find all students (StudentID, LastName) enrolled in CourseID 'IT079IU' who received grade 'A'.
+
+π StudentID, LastName ( σ CourseID='IT079IU' ∧ Grade='A' ( STUDENT ⋈ ENROLLS ) )`,
+            modelTreeNotes: "Root Node: π StudentID, LastName\n  ↳ Child: ⋈ StudentID=StudentID\n      ├── Left Child: STUDENT\n      └── Right Child: σ CourseID='IT079IU' ∧ Grade='A' (ENROLLS)",
+            modelSQL: `SELECT S.StudentID, S.LastName
+FROM STUDENT S, ENROLLS E
+WHERE S.StudentID = E.StudentID
+  AND E.CourseID = 'IT079IU'
+  AND E.Grade = 'A';`,
+            rubric: [
+              { id: 'r1_1', text: 'Step 1 (ERD): Correct entities drawn, SECTION as weak entity (double rectangle) and HAS as identifying relationship (double diamond)', points: 5 },
+              { id: 'r1_2', text: 'Step 1 (ERD): Correct composite Name, multivalued Phones (double ellipse), derived Age (dashed), and ISA hierarchy (d, total)', points: 5 },
+              { id: 'r1_3', text: 'Step 2 (Schema): SECTION table has composite PK (CourseID, SecNo); separate table for multivalued STUDENT_PHONES; correct foreign keys', points: 5 },
+              { id: 'r1_4', text: 'Step 3 (RA): Correct projection and selection predicate with join between STUDENT and ENROLLS', points: 5 },
+              { id: 'r1_5', text: 'Step 4 & 5 (Tree & SQL): Expression tree shows projection at root with selection pushed down to ENROLLS; valid SQL query with join and WHERE filters', points: 5 }
+            ]
+          },
+          {
+            id: '2',
+            title: 'Scenario 2: The "Beers" Enterprise Management System',
+            source: 'IT079IU_Lec02_ER_Model_revise.pdf (Slides 69-76), Lec03 (Slides 33-36), Lec04 (Slides 7-13, 46-48, 62)',
+            description: "A database system manages the enterprise Beers ecosystem:\n1. Bars each have a unique name, an address, and a license.\n2. Drinkers each have a unique name and an address.\n3. Beers each have a unique name and a brewer/manufacturer. Beers specialize into Ales which adds attribute Color.\n4. Bars serve beers at a price: Sells(bar, beer, price).\n5. Drinkers frequent bars a number of times per week: Frequents(drinker, bar, times_a_week).\n6. Drinkers like beers: Likes(drinker, beer).",
+            modelErdNotes: "Entities: Bars (name [PK], address, license), Drinkers (name [PK], address), Beers (name [PK], brewer).\nSubclasses: Ales (ISA Beers with attribute Color).\nRelationships: Sells (M:N between Bars and Beers, carries attribute price), Frequents (M:N between Drinkers and Bars, carries attribute times_a_week), Likes (M:N between Drinkers and Beers).",
+            modelSchema: `Bars(name, address, license)
+  PK = (name)
+
+Drinkers(name, address)
+  PK = (name)
+
+Beers(name, brewer)
+  PK = (name)
+
+Ales(name, color)
+  PK = (name)
+  FK: name -> Beers(name)
+
+Serves(bar, beer, price)
+  PK = (bar, beer)
+  FK: bar -> Bars(name)
+  FK: beer -> Beers(name)
+
+Frequents(drinker, bar, times_a_week)
+  PK = (drinker, bar)
+  FK: drinker -> Drinkers(name)
+  FK: bar -> Bars(name)
+
+Likes(drinker, beer)
+  PK = (drinker, beer)
+  FK: drinker -> Drinkers(name)
+  FK: beer -> Beers(name)`,
+            modelRA: `Query: Find the addresses of all bars that Dan frequents.
+
+π address ( Bar ⋈ bar = name ( σ drinker = 'Dan' (Frequents) ) )`,
+            modelTreeNotes: "Root Node: π address\n  ↳ Child: ⋈ bar = name\n      ├── Left Child: Bar\n      └── Right Child: σ drinker = 'Dan' (Frequents)",
+            modelSQL: `SELECT B.address
+FROM Bars B, Frequents F
+WHERE B.name = F.bar
+  AND F.drinker = 'Dan';`,
+            rubric: [
+              { id: 'r2_1', text: 'Step 1 (ERD): Entities Bars, Drinkers, Beers mapped; relationship attributes price and times_a_week placed on relationship diamonds', points: 5 },
+              { id: 'r2_2', text: 'Step 1 (ERD): ISA specialization Ales with attribute Color correctly linked with ISA triangle', points: 5 },
+              { id: 'r2_3', text: 'Step 2 (Schema): Serves, Frequents, Likes mapped as separate M:N tables with composite PKs; Ales maps via Option A (E/R style)', points: 5 },
+              { id: 'r2_4', text: 'Step 3 (RA): Correct join condition bar = name and pushdown of selection σ drinker="Dan"', points: 5 },
+              { id: 'r2_5', text: 'Step 4 & 5 (Tree & SQL): Valid Expression Tree with π address at root; matching declarative SQL query joining Bars and Frequents', points: 5 }
+            ]
+          }
+        ]
+      }
+    };
+
+    /**
+     * Main UI Controller
+     */
+    const App = {
+      erdCanvas: null,
+      treeCanvas: null,
+      currentFilter: 'all',
+
+      init() {
+        this.loadSavedState();
+        this.initTheme();
+        this.initTabs();
+        this.initCanvases();
+        this.initPalettes();
+        this.initSymbolButtons();
+        this.initEssayWorkflow();
+        this.initModals();
+        this.initFilters();
+        this.renderMCQStage();
+        this.renderShortStage();
+        this.updateStatsUI();
+      },
+
+      loadSavedState() {
+        const saved = Storage.get('state');
+        if (saved) {
+          AppState.progress = { ...AppState.progress, ...saved };
+        }
+      },
+
+      saveState() {
+        Storage.set('state', AppState.progress);
+        this.updateStatsUI();
+      },
+
+      initTheme() {
+        const savedTheme = AppState.progress.theme || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        this.setTheme(savedTheme);
+
+        document.getElementById('btnThemeToggle').addEventListener('click', () => {
+          const next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+          this.setTheme(next);
+        });
+      },
+
+      setTheme(theme) {
+        document.documentElement.setAttribute('data-theme', theme);
+        AppState.progress.theme = theme;
+        document.getElementById('themeIcon').textContent = theme === 'dark' ? '☀️' : '🌙';
+        Storage.set('state', AppState.progress);
+      },
+
+      initTabs() {
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        tabBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            tabBtns.forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            btn.classList.add('active');
+            const stage = btn.getAttribute('data-stage');
+            document.getElementById(`stage${stage}View`).classList.add('active');
+          });
+        });
+      },
+
+      initFilters() {
+        const filterBtns = document.querySelectorAll('#shortFilterBar .filter-btn');
+        filterBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            this.currentFilter = btn.getAttribute('data-filter');
+            this.renderShortStage();
+          });
+        });
+      },
+
+      initCanvases() {
+        this.erdCanvas = new SvgDrawingEngine('erdSvgCanvas', {
+          onChange: () => {
+            AppState.progress.stage3.erdData = this.erdCanvas.serialize();
+            this.saveState();
+          },
+          getConnectProperties: () => ({
+            lineType: document.getElementById('erdLineType').value,
+            cardinality: document.getElementById('erdCardinalityInput').value.trim()
+          })
+        });
+
+        this.treeCanvas = new SvgDrawingEngine('treeSvgCanvas', {
+          isTree: true,
+          onChange: () => {
+            AppState.progress.stage3.treeData = this.treeCanvas.serialize();
+            this.saveState();
+          }
+        });
+
+        // ERD Controls
+        document.getElementById('btnErdModeSelect').addEventListener('click', () => {
+          this.erdCanvas.mode = 'select';
+          document.getElementById('btnErdModeSelect').classList.add('btn-primary');
+          document.getElementById('btnErdModeConnect').classList.remove('btn-primary');
+        });
+
+        document.getElementById('btnErdModeConnect').addEventListener('click', () => {
+          this.erdCanvas.mode = 'connect';
+          document.getElementById('btnErdModeConnect').classList.add('btn-primary');
+          document.getElementById('btnErdModeSelect').classList.remove('btn-primary');
+        });
+
+        document.getElementById('btnErdDeleteSelected').addEventListener('click', () => {
+          this.erdCanvas.deleteSelected();
+        });
+
+        document.getElementById('btnErdClear').addEventListener('click', () => {
+          if (confirm('Clear entire ERD canvas?')) {
+            this.erdCanvas.clear();
+          }
+        });
+
+        // Tree Controls
+        document.getElementById('btnTreeModeSelect').addEventListener('click', () => {
+          this.treeCanvas.mode = 'select';
+          document.getElementById('btnTreeModeSelect').classList.add('btn-primary');
+          document.getElementById('btnTreeModeConnect').classList.remove('btn-primary');
+        });
+
+        document.getElementById('btnTreeModeConnect').addEventListener('click', () => {
+          this.treeCanvas.mode = 'connect';
+          document.getElementById('btnTreeModeConnect').classList.add('btn-primary');
+          document.getElementById('btnTreeModeSelect').classList.remove('btn-primary');
+        });
+
+        document.getElementById('btnTreeDeleteSelected').addEventListener('click', () => {
+          this.treeCanvas.deleteSelected();
+        });
+
+        document.getElementById('btnTreeClear').addEventListener('click', () => {
+          if (confirm('Clear entire Expression Tree canvas?')) {
+            this.treeCanvas.clear();
+          }
+        });
+
+        if (AppState.progress.stage3.erdData) {
+          this.erdCanvas.deserialize(AppState.progress.stage3.erdData);
+        }
+        if (AppState.progress.stage3.treeData) {
+          this.treeCanvas.deserialize(AppState.progress.stage3.treeData);
+        }
+      },
+
+      initPalettes() {
+        document.querySelectorAll('#erdPalette .palette-item').forEach(item => {
+          item.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('type', item.getAttribute('data-type'));
+            e.dataTransfer.effectAllowed = 'copy';
+          });
+        });
+
+        document.querySelectorAll('#treePalette .palette-item').forEach(item => {
+          item.addEventListener('dragstart', (e) => {
+            e.dataTransfer.setData('type', item.getAttribute('data-type'));
+            e.dataTransfer.setData('symbol', item.getAttribute('data-symbol') || '');
+            e.dataTransfer.effectAllowed = 'copy';
+          });
+        });
+      },
+
+      initSymbolButtons() {
+        document.querySelectorAll('.symbol-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const symbol = btn.getAttribute('data-symbol');
+            const targetId = btn.getAttribute('data-target');
+            let targetEl = null;
+
+            if (targetId) {
+              targetEl = document.getElementById(targetId);
+            } else {
+              targetEl = document.activeElement;
+              if (!targetEl || !['INPUT', 'TEXTAREA'].includes(targetEl.tagName)) {
+                targetEl = document.querySelector('.short-textarea:focus') || document.querySelector('.short-textarea');
+              }
+            }
+
+            if (targetEl && (targetEl.tagName === 'TEXTAREA' || targetEl.tagName === 'INPUT')) {
+              const start = targetEl.selectionStart || 0;
+              const end = targetEl.selectionEnd || 0;
+              const val = targetEl.value;
+              targetEl.value = val.substring(0, start) + symbol + val.substring(end);
+              targetEl.selectionStart = targetEl.selectionEnd = start + symbol.length;
+              targetEl.focus();
+            }
+          });
+        });
+      },
+
+      initEssayWorkflow() {
+        const stepBtns = document.querySelectorAll('.step-btn');
+        stepBtns.forEach(btn => {
+          btn.addEventListener('click', () => {
+            const stepNum = btn.getAttribute('data-step');
+            this.setEssayStep(stepNum);
+          });
+        });
+
+        const schemaInput = document.getElementById('essaySchemaInput');
+        const raInput = document.getElementById('essayRaInput');
+        const sqlInput = document.getElementById('essaySqlInput');
+
+        if (AppState.progress.stage3.schemaText) schemaInput.value = AppState.progress.stage3.schemaText;
+        if (AppState.progress.stage3.raText) raInput.value = AppState.progress.stage3.raText;
+        if (AppState.progress.stage3.sqlText) sqlInput.value = AppState.progress.stage3.sqlText;
+
+        schemaInput.addEventListener('input', () => {
+          AppState.progress.stage3.schemaText = schemaInput.value;
+        });
+        raInput.addEventListener('input', () => {
+          AppState.progress.stage3.raText = raInput.value;
+        });
+        sqlInput.addEventListener('input', () => {
+          AppState.progress.stage3.sqlText = sqlInput.value;
+        });
+
+        // Scenario selector
+        const scenarioSelect = document.getElementById('scenarioSelect');
+        scenarioSelect.value = AppState.progress.stage3.scenarioId || '1';
+        this.updateScenarioDisplay(scenarioSelect.value);
+
+        scenarioSelect.addEventListener('change', () => {
+          AppState.progress.stage3.scenarioId = scenarioSelect.value;
+          this.updateScenarioDisplay(scenarioSelect.value);
+          this.saveState();
+          if (AppState.progress.stage3.submitted) {
+            this.revealModelAnswer();
+          }
+        });
+
+        // Save Draft Button
+        document.getElementById('btnSaveEssayDraft').addEventListener('click', () => {
+          this.saveState();
+          alert('Draft successfully saved to localStorage!');
+        });
+
+        // Submit Scenario Button
+        document.getElementById('btnSubmitEssay').addEventListener('click', () => {
+          this.submitEssayScenario();
+        });
+
+        if (AppState.progress.stage3.submitted) {
+          this.revealModelAnswer();
+        }
+      },
+
+      updateScenarioDisplay(scenarioId) {
+        const sc = AppState.data.essayScenarios.find(s => s.id === scenarioId);
+        if (!sc) return;
+
+        document.getElementById('scenarioDomainTitle').textContent = sc.title;
+        document.getElementById('scenarioDescription').textContent = sc.description;
+        document.getElementById('essaySourceBadge').textContent = 'Source: ' + sc.source;
+      },
+
+      setEssayStep(stepNum) {
+        AppState.progress.stage3.currentStep = stepNum;
+        document.querySelectorAll('.step-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('.step-content').forEach(c => c.classList.remove('active'));
+
+        const targetBtn = document.getElementById(`stepBtn${stepNum}`);
+        const targetContent = document.getElementById(`essayStep${stepNum}`);
+        if (targetBtn) targetBtn.classList.add('active');
+        if (targetContent) targetContent.classList.add('active');
+      },
+
+      submitEssayScenario() {
+        AppState.progress.stage3.submitted = true;
+        this.saveState();
+        this.revealModelAnswer();
+      },
+
+      revealModelAnswer() {
+        const gradingSection = document.getElementById('essayGradingSection');
+        gradingSection.style.display = 'block';
+        document.getElementById('essaySubmissionStatus').innerHTML = `
+          <span style="color:var(--accent-success); font-weight:700;">Status: Submitted & Model Solution Unlocked</span>
+        `;
+
+        const studentSummary = document.getElementById('studentWorkSummary');
+        studentSummary.innerHTML = `
+          <div><strong>1. ERD Nodes:</strong> ${this.erdCanvas.nodes.length} shapes placed, ${this.erdCanvas.edges.length} connections.</div>
+          <div><strong>2. Schema Mapping:</strong> <pre style="background:var(--bg-surface-alt); padding:0.4rem; border-radius:4px; font-size:0.75rem; overflow-x:auto;">${AppState.progress.stage3.schemaText || '(No schema submitted)'}</pre></div>
+          <div><strong>3. Relational Algebra:</strong> <pre style="background:var(--bg-surface-alt); padding:0.4rem; border-radius:4px; font-size:0.75rem; overflow-x:auto;">${AppState.progress.stage3.raText || '(No RA submitted)'}</pre></div>
+          <div><strong>4. Expression Tree:</strong> ${this.treeCanvas.nodes.length} operator/relation nodes created.</div>
+          <div><strong>5. SQL Query:</strong> <pre style="background:var(--bg-surface-alt); padding:0.4rem; border-radius:4px; font-size:0.75rem; overflow-x:auto;">${AppState.progress.stage3.sqlText || '(No SQL submitted)'}</pre></div>
+        `;
+
+        const activeScenario = AppState.data.essayScenarios.find(s => s.id === AppState.progress.stage3.scenarioId) || AppState.data.essayScenarios[0];
+        const modelSolution = document.getElementById('modelSolutionDisplay');
+
+        modelSolution.innerHTML = `
+          <div style="margin-bottom:0.4rem;"><span class="source-tag verified">${activeScenario.source}</span></div>
+          <div><strong>1. ERD Modeling:</strong><div style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.2rem;">${activeScenario.modelErdNotes}</div></div>
+          <div style="margin-top:0.4rem;"><strong>2. Relational Schema:</strong> <pre style="background:var(--bg-surface-alt); padding:0.4rem; border-radius:4px; font-size:0.75rem; overflow-x:auto;">${activeScenario.modelSchema}</pre></div>
+          <div style="margin-top:0.4rem;"><strong>3. Relational Algebra:</strong> <pre style="background:var(--bg-surface-alt); padding:0.4rem; border-radius:4px; font-size:0.75rem; overflow-x:auto;">${activeScenario.modelRA}</pre></div>
+          <div style="margin-top:0.4rem;"><strong>4. Expression Tree:</strong><div style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.2rem; white-space:pre-line;">${activeScenario.modelTreeNotes}</div></div>
+          <div style="margin-top:0.4rem;"><strong>5. SQL Query:</strong> <pre style="background:var(--bg-surface-alt); padding:0.4rem; border-radius:4px; font-size:0.75rem; overflow-x:auto;">${activeScenario.modelSQL}</pre></div>
+        `;
+
+        this.renderRubric(activeScenario.rubric);
+      },
+
+      renderRubric(rubricItems) {
+        const container = document.getElementById('rubricItemsContainer');
+        container.innerHTML = '';
+        let totalPossible = 0;
+
+        rubricItems.forEach(item => {
+          totalPossible += item.points;
+          const isChecked = !!AppState.progress.stage3.rubricChecked[item.id];
+          const div = document.createElement('div');
+          div.className = 'rubric-item';
+          div.innerHTML = `
+            <input type="checkbox" class="rubric-checkbox" data-id="${item.id}" data-points="${item.points}" ${isChecked ? 'checked' : ''}>
+            <label style="cursor:pointer; flex:1;">${item.text}</label>
+            <span class="rubric-points">+${item.points} pts</span>
+          `;
+
+          const chk = div.querySelector('.rubric-checkbox');
+          chk.addEventListener('change', () => {
+            AppState.progress.stage3.rubricChecked[item.id] = chk.checked;
+            this.recalculateEssayScore(rubricItems, totalPossible);
+            this.saveState();
+          });
+
+          container.appendChild(div);
+        });
+
+        document.getElementById('btnAutoScoreRubric').onclick = () => {
+          rubricItems.forEach(item => {
+            AppState.progress.stage3.rubricChecked[item.id] = true;
+          });
+          this.renderRubric(rubricItems);
+          this.recalculateEssayScore(rubricItems, totalPossible);
+          this.saveState();
+        };
+
+        this.recalculateEssayScore(rubricItems, totalPossible);
+      },
+
+      recalculateEssayScore(rubricItems, totalPossible) {
+        let earned = 0;
+        rubricItems.forEach(item => {
+          if (AppState.progress.stage3.rubricChecked[item.id]) {
+            earned += item.points;
+          }
+        });
+        AppState.progress.stage3.score = earned;
+        const pct = totalPossible > 0 ? Math.round((earned / totalPossible) * 100) : 0;
+        document.getElementById('essayTotalScore').textContent = `${earned} / ${totalPossible} pts (${pct}%)`;
+      },
+
+      initModals() {
+        const reviewModal = document.getElementById('reviewModal');
+        document.getElementById('btnReviewList').addEventListener('click', () => {
+          this.renderReviewListModal();
+          reviewModal.classList.add('active');
+        });
+        document.getElementById('btnCloseReviewModal').addEventListener('click', () => reviewModal.classList.remove('active'));
+        document.getElementById('btnDoneReviewModal').addEventListener('click', () => reviewModal.classList.remove('active'));
+        document.getElementById('btnClearReviewList').addEventListener('click', () => {
+          if (confirm('Clear all review items?')) {
+            AppState.progress.reviewList = [];
+            this.saveState();
+            this.renderReviewListModal();
+            this.updateStatsUI();
+          }
+        });
+
+        const verModal = document.getElementById('verificationModal');
+        document.getElementById('btnVerificationReport').addEventListener('click', () => verModal.classList.add('active'));
+        document.getElementById('btnCloseVerificationModal').addEventListener('click', () => verModal.classList.remove('active'));
+        document.getElementById('btnCloseVerificationModal2').addEventListener('click', () => verModal.classList.remove('active'));
+
+        document.getElementById('btnResetProgress').addEventListener('click', () => {
+          if (confirm('Are you sure you want to completely reset all your midterm study progress?')) {
+            Storage.clearAll();
+            window.location.reload();
+          }
+        });
+      },
+
+      renderReviewListModal() {
+        const container = document.getElementById('reviewListContent');
+        const list = AppState.progress.reviewList || [];
+        if (list.length === 0) {
+          container.innerHTML = `
+            <div style="text-align:center; padding:2rem; color:var(--text-muted);">
+              <div style="font-size:2rem; margin-bottom:0.5rem;">🎉</div>
+              <h4>No items currently in your review list</h4>
+              <p style="font-size:0.85rem;">Missed multiple-choice questions or short exercises will appear here for targeted review.</p>
+            </div>
+          `;
+          return;
+        }
+
+        container.innerHTML = '';
+        list.forEach(id => {
+          const item = AppState.data.mcq.find(q => q.id === id) || AppState.data.short.find(s => s.id === id);
+          if (!item) return;
+
+          const div = document.createElement('div');
+          div.className = 'card';
+          div.style.marginBottom = '0.5rem';
+          div.innerHTML = `
+            <div class="card-header">
+              <span class="badge badge-danger">Review: ${item.topic.toUpperCase()}</span>
+              <span class="source-tag verified">${item.source}</span>
+            </div>
+            <div style="font-weight:600; font-size:0.88rem; margin-bottom:0.4rem;">${item.question || item.prompt}</div>
+            <div style="font-size:0.82rem; color:var(--text-secondary);">${item.explanation || ''}</div>
+          `;
+          container.appendChild(div);
+        });
+      },
+
+      renderMCQStage() {
+        const container = document.getElementById('mcqListContainer');
+        const questions = AppState.data.mcq;
+        container.innerHTML = '';
+
+        questions.forEach((q, idx) => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          const savedAns = AppState.progress.stage1[q.id];
+
+          card.innerHTML = `
+            <div class="card-header">
+              <div>
+                <span class="badge badge-primary">Q${idx + 1} • ${q.topic.toUpperCase()}</span>
+              </div>
+              <span class="source-tag verified">Source: ${q.source}</span>
+            </div>
+            <div class="mcq-question">${q.question}</div>
+            <div class="mcq-options" id="optGroup_${q.id}">
+              ${q.options.map(opt => `
+                <div class="mcq-option" data-qid="${q.id}" data-opt="${opt.key}">
+                  <span class="mcq-option-letter">${opt.key}</span>
+                  <span>${opt.text}</span>
+                </div>
+              `).join('')}
+            </div>
+            <div class="mcq-explanation" id="exp_${q.id}">
+              <div style="margin-bottom:0.4rem;"><strong style="color:var(--accent-success);">Correct Answer (${q.correctOption}):</strong> ${q.explanation}</div>
+              <div class="mcq-why-wrong">
+                <strong>Why each other option is incorrect:</strong>
+                ${q.options.filter(o => o.key !== q.correctOption).map(o => `
+                  <div class="mcq-why-wrong-item">
+                    <span style="font-weight:700; color:var(--accent-danger);">${o.key}:</span>
+                    <span>${q.whyWrong[o.key] || 'Does not satisfy the database constraint.'}</span>
+                  </div>
+                `).join('')}
+              </div>
+            </div>
+          `;
+
+          card.querySelectorAll('.mcq-option').forEach(optEl => {
+            optEl.addEventListener('click', () => {
+              this.handleMCQSelection(q, optEl.getAttribute('data-opt'), card);
+            });
+          });
+
+          if (savedAns) {
+            this.applyMCQVisuals(q, savedAns.selected, card);
+          }
+
+          container.appendChild(card);
+        });
+      },
+
+      handleMCQSelection(question, selectedKey, cardEl) {
+        const isCorrect = (selectedKey === question.correctOption);
+        AppState.progress.stage1[question.id] = {
+          selected: selectedKey,
+          isCorrect,
+          timestamp: Date.now()
+        };
+
+        if (!isCorrect) {
+          if (!AppState.progress.reviewList.includes(question.id)) {
+            AppState.progress.reviewList.push(question.id);
+          }
+        } else {
+          AppState.progress.reviewList = AppState.progress.reviewList.filter(id => id !== question.id);
+        }
+
+        this.applyMCQVisuals(question, selectedKey, cardEl);
+        this.saveState();
+      },
+
+      applyMCQVisuals(question, selectedKey, cardEl) {
+        const options = cardEl.querySelectorAll('.mcq-option');
+        options.forEach(opt => {
+          const key = opt.getAttribute('data-opt');
+          opt.classList.remove('selected', 'correct', 'incorrect');
+          if (key === question.correctOption) {
+            opt.classList.add('correct');
+          } else if (key === selectedKey && key !== question.correctOption) {
+            opt.classList.add('incorrect');
+          }
+        });
+
+        const exp = cardEl.querySelector(`#exp_${question.id}`);
+        if (exp) exp.classList.add('visible');
+      },
+
+      renderShortStage() {
+        const container = document.getElementById('shortListContainer');
+        let exercises = AppState.data.short;
+
+        if (this.currentFilter !== 'all') {
+          exercises = exercises.filter(ex => ex.topic === this.currentFilter);
+        }
+
+        container.innerHTML = '';
+        exercises.forEach((ex, idx) => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          const saved = AppState.progress.stage2[ex.id] || {};
+
+          card.innerHTML = `
+            <div class="card-header">
+              <span class="badge badge-warning">Exercise ${idx + 1} • ${ex.topic.toUpperCase()}</span>
+              <span class="source-tag verified">Source: ${ex.source}</span>
+            </div>
+            <div style="font-size:0.92rem; font-weight:600; margin-bottom:0.75rem; white-space:pre-line;">${ex.prompt}</div>
+            ${ex.snippet ? `<pre style="background:var(--bg-surface-alt); padding:0.6rem; border-radius:4px; font-family:var(--font-mono); font-size:0.8rem; margin-bottom:0.75rem; overflow-x:auto;">${ex.snippet}</pre>` : ''}
+
+            <div class="symbol-palette">
+              <span class="symbol-palette-label">Insert:</span>
+              <button class="symbol-btn" data-target="input_${ex.id}" data-symbol="σ">σ</button>
+              <button class="symbol-btn" data-target="input_${ex.id}" data-symbol="π">π</button>
+              <button class="symbol-btn" data-target="input_${ex.id}" data-symbol="⋈">⋈</button>
+              <button class="symbol-btn" data-target="input_${ex.id}" data-symbol="×">×</button>
+              <button class="symbol-btn" data-target="input_${ex.id}" data-symbol="∪">∪</button>
+              <button class="symbol-btn" data-target="input_${ex.id}" data-symbol="−">−</button>
+              <button class="symbol-btn" data-target="input_${ex.id}" data-symbol="∩">∩</button>
+              <button class="symbol-btn" data-target="input_${ex.id}" data-symbol="÷">÷</button>
+              <button class="symbol-btn" data-target="input_${ex.id}" data-symbol="ρ">ρ</button>
+            </div>
+
+            <div class="input-group">
+              <textarea id="input_${ex.id}" class="short-textarea" rows="3" placeholder="Type your answer / expression here...">${saved.studentAnswer || ''}</textarea>
+            </div>
+
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+              <button class="btn btn-sm btn-primary" id="btnCheck_${ex.id}">Check Answer</button>
+              <div class="manual-override-controls">
+                <span>Manual Override:</span>
+                <button class="btn btn-sm" id="btnMarkCorrect_${ex.id}">Mark Correct</button>
+                <button class="btn btn-sm" id="btnMarkWrong_${ex.id}">Mark Wrong</button>
+              </div>
+            </div>
+
+            <div class="short-feedback" id="feedback_${ex.id}"></div>
+          `;
+
+          const btnCheck = card.querySelector(`#btnCheck_${ex.id}`);
+          const btnMarkCorrect = card.querySelector(`#btnMarkCorrect_${ex.id}`);
+          const btnMarkWrong = card.querySelector(`#btnMarkWrong_${ex.id}`);
+          const inputEl = card.querySelector(`#input_${ex.id}`);
+
+          btnCheck.addEventListener('click', () => {
+            this.handleShortExerciseCheck(ex, inputEl.value, card);
+          });
+
+          btnMarkCorrect.addEventListener('click', () => {
+            this.overrideShortExercise(ex, true, inputEl.value, card);
+          });
+
+          btnMarkWrong.addEventListener('click', () => {
+            this.overrideShortExercise(ex, false, inputEl.value, card);
+          });
+
+          if (saved.studentAnswer !== undefined) {
+            this.applyShortVisuals(ex, saved.isCorrect, saved.studentAnswer, card);
+          }
+
+          container.appendChild(card);
+        });
+      },
+
+      handleShortExerciseCheck(ex, answerText, cardEl) {
+        const { isCorrect, missing, presentForbidden } = TextNormalizer.checkKeywords(answerText, ex.requiredKeywords || [], ex.forbiddenKeywords || []);
+
+        AppState.progress.stage2[ex.id] = {
+          studentAnswer: answerText,
+          isCorrect,
+          timestamp: Date.now()
+        };
+
+        if (!isCorrect) {
+          if (!AppState.progress.reviewList.includes(ex.id)) {
+            AppState.progress.reviewList.push(ex.id);
+          }
+        } else {
+          AppState.progress.reviewList = AppState.progress.reviewList.filter(id => id !== ex.id);
+        }
+
+        this.applyShortVisuals(ex, isCorrect, answerText, cardEl, missing, presentForbidden);
+        this.saveState();
+      },
+
+      overrideShortExercise(ex, isCorrect, answerText, cardEl) {
+        AppState.progress.stage2[ex.id] = {
+          studentAnswer: answerText,
+          isCorrect,
+          manualOverride: true,
+          timestamp: Date.now()
+        };
+
+        if (!isCorrect) {
+          if (!AppState.progress.reviewList.includes(ex.id)) {
+            AppState.progress.reviewList.push(ex.id);
+          }
+        } else {
+          AppState.progress.reviewList = AppState.progress.reviewList.filter(id => id !== ex.id);
+        }
+
+        this.applyShortVisuals(ex, isCorrect, answerText, cardEl, [], [], true);
+        this.saveState();
+      },
+
+      applyShortVisuals(ex, isCorrect, answerText, cardEl, missing = [], presentForbidden = [], isOverride = false) {
+        const feedback = cardEl.querySelector(`#feedback_${ex.id}`);
+        feedback.className = `short-feedback ${isCorrect ? 'correct' : 'incorrect'}`;
+
+        let html = `<strong>${isCorrect ? '✓ Correct!' : '✗ Incomplete or Missing Expected Keyword'}</strong>`;
+        if (isOverride) {
+          html += ` <em>(Manually overridden by student)</em>`;
+        }
+        if (!isCorrect && missing.length > 0) {
+          html += `<div style="font-size:0.8rem; margin-top:0.25rem;">Missing expected keyword/token: <code>${missing.join(', ')}</code></div>`;
+        }
+        html += `<div style="margin-top:0.4rem; font-size:0.82rem;"><strong>Verified Model Answer:</strong> <code style="color:var(--accent-primary);">${ex.modelAnswer}</code></div>`;
+        if (ex.explanation) {
+          html += `<div style="margin-top:0.25rem; font-size:0.8rem; color:var(--text-secondary);">${ex.explanation}</div>`;
+        }
+
+        feedback.innerHTML = html;
+      },
+
+      updateStatsUI() {
+        const reviewBadge = document.getElementById('reviewCountBadge');
+        const count = (AppState.progress.reviewList || []).length;
+        reviewBadge.textContent = count;
+        reviewBadge.className = `badge ${count > 0 ? 'badge-danger' : 'badge-success'}`;
+
+        const topicKeys = ['erd', 'mapping', 'ra', 'tree', 'sql'];
+        topicKeys.forEach(tKey => {
+          let total = 0;
+          let completed = 0;
+
+          AppState.data.mcq.filter(q => q.topic === tKey).forEach(q => {
+            total++;
+            if (AppState.progress.stage1[q.id]?.isCorrect) completed++;
+          });
+
+          AppState.data.short.filter(s => s.topic === tKey).forEach(s => {
+            total++;
+            if (AppState.progress.stage2[s.id]?.isCorrect) completed++;
+          });
+
+          const pct = total > 0 ? Math.round((completed / total) * 100) : 0;
+          const fill = document.getElementById(`progress-${tKey}`);
+          const statItems = document.getElementById(`stat-${tKey}-items`);
+          const statPct = document.getElementById(`stat-${tKey}-pct`);
+
+          if (fill) fill.style.width = `${pct}%`;
+          if (statItems) statItems.textContent = `${completed} / ${total} completed`;
+          if (statPct) statPct.textContent = `${pct}%`;
+        });
+      }
+    };
+
+    window.addEventListener('DOMContentLoaded', () => {
+      App.init();
+    });
+  </script>
+</body>
+</html>
